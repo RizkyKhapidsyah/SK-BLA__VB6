@@ -1,0 +1,15 @@
+Sub SOCKCONNECT ()
+Quando il sock è connesso ad un server viene richiamata questa procedura.
+Il codice riportato nell'esempio serve per loggarsi al server, ovvero identificarsi con il proprio nick.
+
+Esempio:
+
+Sub SOCKCONNECT ()
+
+Sock.SendData "User " & UserMail.caption & " " & Sock.LocalHostName & " " & Sock.RemoteHost & " :" & UserName.caption & vbCrLf
+Sock.SendData "NICK " & UserNick.caption & vbCrLf
+Noticeform.Show 
+spystatus.show
+
+End Sub
+

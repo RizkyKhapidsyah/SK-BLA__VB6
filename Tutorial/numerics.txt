@@ -1,0 +1,4711 @@
+** Raw Numerics reference (numerics.txt) version 1.05.99.04.17
+** Downloaded from paiRC - http://www.pairc.com/
+** All content is written by pai. (pai@pairc.com)
+** See http://www.pairc.com/misc/about.html for copyright details.
+
+** Please distribute freely, but do not remove this information.
+** Best viewed with -word wrap ON-
+
+
+Raw 001
+-------
+Format : 001 :Welcome to the Internet Relay Network <nickname>
+Example: 001 :Welcome to the Internet Relay Network Gemini
+Network: All
+
+Parameters
+----------
+<nickname>	Your nickname.
+
+Info
+----
+Sent to all clients once a connection has been established and the user has successfully registered.
+
+Notes
+-----
+This is the first point where a script or client can be sure that the user's connection has been accepted without errors or problems.
+
+This reply is sent once upon connection automatically, and never again during an IRC session.
+
+Variations
+----------
+On many networks (such as Dalnet) the user's full address will be given instead of just a nickname, for example-
+
+001 :Welcome to the Internet Relay Network Gemini!zodiac@port123.stupid.com
+
+Also, many networks change the message itself to include the network's name in the message, for example-
+
+001 :Welcome to the DALnet IRC Network pai!goddess@21.9.234.32
+
+You cannot be guaranteed that the network name or user's nickname will always be in the same position.
+
+See Also
+--------
+The following are sent in sequence on connection-
+
+001, 002, 003, 004
+
+
+Raw 002
+-------
+Format : 002 :Your host is <server>, running version <ver>
+Example: 002 :Your host is StLouis.MO.US.UnderNet.org, running version u2.10.04
+Network: All
+
+Parameters
+----------
+<server>	The name of the server you have connected to.
+<ver>	The version of IRCd the server is running.
+
+Info
+----
+Sent to all clients once a connection has been established and the user has successfully registered.
+
+Notes
+-----
+The version code is probably the single best way to determine what special 'features' a server supports. Some common version codes- (* may be anything)
+
+* u2.10.* - Undernet
+* dal4.* - Dalnet
+* 2.8* - Efnet
+* 2.9.* - Ircnet
+
+If you want to get the server version while you are connected, you can use VERSION.
+
+This reply is sent once upon connection automatically, and never again during an IRC session.
+
+See Also
+--------
+The following are sent in sequence on connection-
+
+001, 002, 003, 004
+
+
+Raw 003
+-------
+Format : 003 :This server was created <datetime>
+Example: 003 :This server was created Thu May 21 1998 at 18:27:08 CDT
+Network: All
+
+Parameters
+----------
+<datetime>	The date and time the server was created or last restarted.
+
+Info
+----
+Sent to all clients once a connection has been established and the user has successfully registered.
+
+Notes
+-----
+You should not rely on these dates and times being in any specific format.
+
+This reply is sent once upon connection automatically, and never again during an IRC session.
+
+See Also
+--------
+The following are sent in sequence on connection-
+
+001, 002, 003, 004
+
+
+Raw 004
+-------
+Format : 004 <server> <ver> <usermode> <chanmode>
+Example: 004 StLouis.MO.US.UnderNet.org u2.10.04 dioswkg biklmnopstv
+Network: All
+
+Parameters
+----------
+<server>	The name of the server you have connected to.
+<ver>	The version of IRCd the server is running.
+<usermode>	The various user modes the server supports
+<chanmode>	The various channel modes the server supports
+
+Info
+----
+Sent to all clients once a connection has been established and the user has successfully registered.
+
+Notes
+-----
+All user modes and channel modes (including o for IRC operator, etc.) are listed, however not all may be accessable to a given user.
+
+This reply is sent once upon connection automatically, and never again during an IRC session.
+
+See Also
+--------
+The following are sent in sequence on connection-
+
+001, 002, 003, 004
+
+
+Raw 005 - Undernet MAP
+----------------------
+Format : 005 :<map>
+Example: 005 : | `-Baltimore.MD.US.Undernet.Org
+Network: Undernet
+
+Parameters
+----------
+<map>	A string showing the relative position of one server
+
+Info
+----
+Sent to a user in reply to a MAP command. When a user requests a MAP, one line is sent for each server, and displaying all of the lines in a fixed width font will show a 'map' of how the servers are connected.
+
+Notes
+-----
+The string is intended for user viewing- Although the format is consistent, you should probably not rely on it being in any given format.
+
+See Also
+--------
+The following are sent in reply to a MAP-
+
+005 (one or more), 007
+
+Returned From
+-------------
+MAP
+
+
+Raw 005 - DALnet protocol
+-------------------------
+Format : 005 <protocols> :are available on this server
+Example: 005 NOQUIT TOKEN WATCH=128 SAFELIST :are available on this server
+Network: DALnet
+
+Parameters
+----------
+<protocols>	A list of special features ("protocols") that the server supports.
+
+Info
+----
+This is sent when you connect to a DALnet server, after the 004 reply.
+
+Notes
+-----
+Some "protocols" that may appear here-
+
+* NOQUIT- Reduces server-to-server bandwidth during splits. (no effect on users)
+* TOKEN- Uses tokens to reduce server-to-server bandwidth. (no effect on users?)
+* WATCH=128- Supports the WATCH command, with a 128 user limit.
+* SAFELIST- Channel LISTs will be sent in chunks to reduce the chance of being disconnected.
+
+The numeric for this may change in the future, as well as the possible features.
+
+See Also
+--------
+The following are sent in sequence on connection to DALnet-
+
+001, 002, 003, 004, 005
+
+
+Raw 007
+-------
+Format : 007 :End of /MAP
+Example: 007 :End of /MAP
+Network: Undernet
+
+Info
+----
+Sent to a user in reply to a MAP command. This marks the end of the reply.
+
+See Also
+--------
+The following are sent in reply to a MAP-
+
+005 (one or more), 007
+
+Returned From
+-------------
+MAP
+
+
+Raw 008
+-------
+Format : 008 <num> :: Server notice mask (<hex>)
+Example: 008 1234 :: Server notice mask (0x4d2)
+Network: Undernet
+
+Parameters
+----------
+<num>	The decimal value of the server notice mask. (from 1 to 8191)
+<hex>	The hexadecimal value of the server notice mask. (from 0x1 to 0x1fff)
+
+Info
+----
+Sent to a user when they set or view their server notice mask.
+
+Notes
+-----
+A server notice mask is a special extension of the +s user MODE on Undernet. It is viewed like any other user MODE, using the MODE command. To set it, you would type something such as-
+
+MODE mynick +s 1234
+
+The mask is 13 bits wide and determines which categories of server notices are sent to you.
+
+See Also
+--------
+Viewing your user mode using MODE will return-
+
+221, 008 (on Undernet)
+
+Returned From
+-------------
+MODE
+
+
+Raw 211
+-------
+Format : 211 <connection> <sendq> <sentmsg> <sentbyte> <recdmsg> <recdbyte> :<open>
+Example: 211 irc1.sprynet.com 0 49243278 3327277 22095880 1208863 :134450
+Network: All
+
+Parameters
+----------
+<connection>	The connection or link name. May include a host or port mask in [brackets] after the server name or address.
+<sendq>	Number of bytes that are buffered but unsent on this connection. (?)
+<sentmsg>	Number of messages sent on this connection.
+<sentbyte>	Number of bytes sent on this connection.
+<recdmsg>	Number of messages received from this connection.
+<recdbyte>	Number of bytes received from this connection.
+<open>	Amount of time (in seconds?) this connection has been open.
+
+Info
+----
+A series of these are sent in reply to a STATS l request. (lowercase L) They represent the ports and connections a server has available for users to connect to.
+
+Notes
+-----
+This reply is not yet fully documented; If you have further information on the contents of this reply, please contact paiRC.
+
+Advanced
+--------
+The primary use for this is selecting a good port to connect to your server. The port will usually be found in the connection parameter, within brackets, as the last token seperated by periods. For example, in "NewBrunswick.NJ.US.Undernet.Org[*.6669]" the port is 6669; in "irc.cs.cmu.edu[unknown@*@*.6666]" the port is 6666; in "irc1.sprynet.com[0.0.0.0.9999]" the port is 9999. If no brackets are found, the port is probably 6667. (the default port.) If no port is listed, then you should probably ignore that line. Also, if the brackets contain other specifics besides a port, you can probably assume that the port is reserved for certain users.
+
+To determine the best port, you should find the port with the lowest traffic. This can usually be best estimated by adding together sentmsg and recdmsg or sentbyte and recdbyte. You may want to divide by the connection open time to get an average throughput.
+
+Variations
+----------
+Like most STATS replies, the format of this reply can vary greatly from network to network. Some examples-
+
+* DALnet
+
+211 stlouis.mo.us.dal.net[*.7325] 0 1902 138 1290 24 1132 :0
+
+211 viper.mo.us.dal.net[209.96.0.13] 0 21928 1062 166461 9935 1127 :0
+
+* Undernet
+
+211 NewBrunswick.NJ.US.Undernet.Org[*.6669] 0 106425518 9240002 20983702 1503812 :3240148
+
+211 NewBrunswick.NJ.US.Undernet.Org[*@204.127.145.*.5832] 0 2307876 204111 161880 6159 :3240148
+
+211 Ice_Age[12.69.75.157] 0 2 0 3 0 :22
+
+211 [198.139.11.11] 0 0 0 0 0 :59
+
+* EFnet
+
+211 irc.cs.cmu.edu[unknown@*@*.6666] 0 14555473 1112048 3423266 153641 :1173564 1173564 -
+
+211 irc1.sprynet.com[0.0.0.0.9999] 0 188077 20386 12894 848 :134450
+
+As can be seen, the format of the connection parameter is where the most differences are found. Usually this is the name of your server, but on Undernet some lines exist without server names. Usually the name is followed by a mask in brackets. This mask may contain a mask to match against a user address, a port, or other details.
+
+The sentmsg/recdmsg and sentbyte/recdbyte parameters may differ in actual calculation from server to server. Some servers may count sentbyte/recdbyte in kilobytes instead of bytes.
+
+Also notice how DALnet servers and at least one EFnet server return additional data. On DALnet, the final parameter is actually idle time for that connection. (in seconds?) On EFnet the additional parameter seems to be a duplicate of the open parameter. (?)
+
+As a final note, many networks send a header line before the actual replies, such as-
+
+211 SendQ SendM SendBytes RcveM RcveBytes Open_since :Idle
+
+Remember to account for this possibility when parsing replies.
+
+See Also
+--------
+The following are sent in response to a STATS l request- (lowercase L)
+
+211 (multiple lines), 219
+
+Returned From
+-------------
+STATS
+
+
+Raw 212
+-------
+Format : 212 <command> <uses> <bytes>
+Example: 212 PRIVMSG 28931 1446042
+Network: All
+
+Parameters
+----------
+<command>	The name of an IRC command.
+<uses>	The number of times the command has been used on this server.
+<bytes>	A measurement of something in bytes or something similar. Not exactly sure on this one. (?)
+
+Info
+----
+A series of these are sent in reply to a STATS m request. They contain statistics on the commands a server supports.
+
+Notes
+-----
+This reply is not yet fully documented; If you have further information on the contents of this reply, please contact paiRC.
+
+See Also
+--------
+The following are sent in response to a STATS m request-
+
+212 (multiple lines), 219
+
+Returned From
+-------------
+STATS
+
+
+Raw 213
+-------
+Format : 213 C <address> * <server> <port> <class>
+Example: 213 C *@205.150.226.4 * toronto.on.ca.dal.net 0 50
+Network: All
+
+Parameters
+----------
+<address>	IP mask for a server. (?)
+<server>	Server name or mask.
+<port>	Port server must connect to, if any. (?)
+<class>	Unsure. (?)
+
+Info
+----
+A series of these are sent in reply to a STATS c request.
+
+Notes
+-----
+A STATS c request lists servers that can and cannot connect to a given server. Both 213 (C-lines) and 214 (N-lines) may be returned.
+
+This reply is not yet fully documented; If you have further information on the contents of this reply, please contact paiRC.
+
+See Also
+--------
+The following are sent in response to a STATS c request-
+
+213 and 214 (multiple lines), 219
+
+Returned From
+-------------
+STATS
+
+
+Raw 214
+-------
+Format : 214 N <address> * <server> <port> <class>
+Example: 214 N *@206.173.136.211 * *.concentric.net 0 10
+Network: All
+
+Parameters
+----------
+<address>	IP mask for a server. (?)
+<server>	Server name or mask.
+<port>	Port server cannot connect to, if specified. (?)
+<class>	Unsure. (?)
+
+Info
+----
+A series of these are sent in reply to a STATS c request.
+
+Notes
+-----
+A STATS c request lists servers that can and cannot connect to a given server. Both 213 (C-lines) and 214 (N-lines) may be returned.
+
+This reply is not yet fully documented; If you have further information on the contents of this reply, please contact paiRC.
+
+See Also
+--------
+The following are sent in response to a STATS c request-
+
+213 and 214 (multiple lines), 219
+
+Returned From
+-------------
+STATS
+
+
+Raw 215
+-------
+Format : 215 I <ipmask> * <hostmask> <port> <class>
+Example: 215 I *@204.127.145.* * NOMATCH 0 3
+Network: All
+
+Parameters
+----------
+<ipmask>	Mask applied to a userhost with IP address.
+<hostmask>	Mask applied to a userhost with a resolved address.
+<port>	Port user has connected to. (?)
+<class>	Unsure. (?)
+
+Info
+----
+A series of these are sent in reply to a STATS i request.
+
+Notes
+-----
+A STATS i request (I-lines) lists classes of clients that are allowed to connect to a server.
+
+This reply is not yet fully documented; If you have further information on the contents of this reply, please contact paiRC.
+
+See Also
+--------
+The following are sent in response to a STATS i request-
+
+215 (multiple lines), 219
+
+Returned From
+-------------
+STATS
+
+
+Raw 216
+-------
+Format : 216 <k> <address> * <username> <details>
+Example: 216 k 147.253.230.* * ~* Temporary K-line 60 min. for Auto-kline, clones (1998/07/22 12.55)
+Network: Most
+
+Parameters
+----------
+<k>	k for a temporary K-line, K for a 'permanent' K-line. (?)
+<address>	Address to match against user.
+<username>	Matched against usernames. (identds)
+<details>	Reason for the K-line.
+
+Info
+----
+A series of these are sent in reply to a STATS k request.
+
+Notes
+-----
+A STATS k request (K-lines) lists classes of clients that are not allowed to connect to a server.
+
+This reply is not yet fully documented; If you have further information on the contents of this reply, please contact paiRC.
+
+Variations
+----------
+Other servers may use another format, for example-
+
+216 K *.mediaone.net MEDIAONE users must run IDENTD to connect 02-10-98 *~* 0 -1
+
+Here, the username parameter is moved to third to last. (unsure? of the relevance of the 0 and -1)
+
+See Also
+--------
+The following are sent in response to a STATS k request-
+
+216 (multiple lines), 219
+
+Returned From
+-------------
+STATS
+
+
+Raw 217
+-------
+Format : 217 P <port> <??> <??>
+Example: 217 P 6666 181 0x2000
+Network: Undernet
+
+Parameters
+----------
+<port>	Port for connections to a server.
+<??>	Unsure.
+
+Info
+----
+A series of these are sent in reply to a STATS p request on Undernet.
+
+Notes
+-----
+Each line lists a port (other than the default 6667 port) on which clients can connect to the server.
+
+This reply is not yet fully documented; If you have further information on the contents of this reply, please contact paiRC.
+
+See Also
+--------
+The following are sent in response to a STATS p request on Undernet-
+
+217 (multiple lines), 219
+
+Returned From
+-------------
+STATS
+
+
+Raw 218
+-------
+Format : 218 Y <class> <ping> <freq> <maxconnect> <sendq>
+Example: 218 Y 100 120 240 1 5000000
+Network: All
+
+Parameters
+----------
+<class>	Connection class. (a numeric ID)
+<sendq>	Maximum sendq allowed for this class, in bytes.
+<ping>	The frequency of PINGs sent to an idling client, in seconds.
+<freq>	Connect frequency. (?)
+<maxconnect>	The maximum number of concurrent connections allowed for a user.
+
+Info
+----
+A series of these are sent in reply to a STATS y request.
+
+Notes
+-----
+Each line lists a Y-line, which details a connection class and their allowed priveledges. Connection classes are used in other lines, such as I-lines, N-lines, and C-lines.
+
+Thanks to Justin H for helping clear up some of this information.
+
+See Also
+--------
+The following are sent in response to a STATS y request-
+
+218 (multiple lines), 219
+
+Returned From
+-------------
+STATS
+
+
+Raw 219
+-------
+Format : 219 <char> :End of /STATS report
+Example: 219 u :End of /STATS report
+Network: All
+
+Parameters
+----------
+<char>	The type of stats that were requested.
+
+Info
+----
+Returned at the end of a STATS request.
+
+Notes
+-----
+Different types of STATS requests generate different replies, however this numeric will always be returned last, regardless of the request.
+
+If the server does not recognize a STATS request, this will be returned by itself with an asterisk (*) for char.
+
+See Also
+--------
+The following are returned for various STATS requests-
+
+211, 212, 213, 214, 215, 216, 217, 218, 222, 223, 224, 241, 242, 243, 244, 247, 248, 249, 250
+
+Returned From
+-------------
+STATS
+
+
+Raw 221
+-------
+Format : 221 <mode>
+Example: 221 +i
+Network: All
+
+Parameters
+----------
+<mode>	Your usermode.
+
+Info
+----
+This is sent when you request to view your usermode using MODE.
+
+See Also
+--------
+Viewing your user mode using MODE will return-
+
+221, 008 (on Undernet only)
+
+Returned From
+-------------
+MODE
+
+
+Raw 222 - DALnet Q-line
+-----------------------
+Format : 222 <nickmask> :<comment>
+Example: 222 *H*lp*S*rv* :Reserved for DALnet Services
+Network: DALnet
+
+Parameters
+----------
+<nickmask>	A mask matched against nicknames.
+<comment>	A comment explaining the reason for the Q-line.
+
+Info
+----
+A series of these are sent in reply to a STATS q request on DALnet.
+
+Notes
+-----
+Each line lists a Q-line, which details a nickname that users are not allowed to use. If a user attempts to use a nickname matching a Q-line, they receive a 432 raw and are not allowed to use that nickname.
+
+See Also
+--------
+The following are sent in response to a STATS q request on DALnet-
+
+222 (multiple lines), 219
+
+Returned From
+-------------
+STATS
+
+
+Raw 222 - EFnet B-line
+----------------------
+Format : 222 B <server> * <??> <??> <??>
+Example: 222 B barracuda.sph.emory.edu * ircadmin 0 -1
+Network: EFnet
+
+Parameters
+----------
+<server>	A server name. (?)
+<??>	Unsure.
+
+Info
+----
+A series of these are sent in reply to a STATS b request on EFnet.
+
+Notes
+-----
+This reply is not yet fully documented; If you have further information on the contents of this reply, please contact paiRC.
+
+See Also
+--------
+The following are sent in response to a STATS b request on EFnet-
+
+222 (zero or more), 219
+
+Returned From
+-------------
+STATS
+
+
+Raw 223
+-------
+Format : 223 E <hostmask> * <username> <??> <??>
+Example: 223 E usr??.primenet.com * *mjr 0 -1
+Network: EFnet
+
+Parameters
+----------
+<hostmask>	A hostmask to match addresses against.
+<username>	A mask to match against usernames. (identds)
+<??>	Unsure.
+
+Info
+----
+A series of these are sent in reply to a STATS e request on EFnet.
+
+Notes
+-----
+This reply is not yet fully documented; If you have further information on the contents of this reply, please contact paiRC.
+
+See Also
+--------
+The following are sent in response to a STATS e request on EFnet-
+
+223 (one or more), 219
+
+Returned From
+-------------
+STATS
+
+
+Raw 224
+-------
+Format : 224 D <ipmask> * <username> <??> <??>
+Example: 224 D 208.132.73.108 * * 0 -1
+Network: EFnet
+
+Parameters
+----------
+<ipmask>	A mask to match IP addresses against.
+<username>	A mask to match against usernames. (identds) (?)
+<??>	Unsure.
+
+Info
+----
+A series of these are sent in reply to a STATS d request on EFnet.
+
+Notes
+-----
+This reply is not yet fully documented; If you have further information on the contents of this reply, please contact paiRC.
+
+See Also
+--------
+The following are sent in response to a STATS d request on EFnet-
+
+224 (one or more), 219
+
+Returned From
+-------------
+STATS
+
+
+Raw 241
+-------
+Format : 241 L <address> * <server> <??> <??>
+Example: 241 L <NULL> * irc2.sprynet.com 0 -1
+Network: All
+
+Parameters
+----------
+<address>	IP mask for a server. (?)
+<server>	Server name or mask.
+<??>	Unsure.
+
+Info
+----
+A series of these are sent in reply to a STATS h request.
+
+Notes
+-----
+A STATS h request lists servers that are treated as hubs and servers that are treated as leaves. Both 241 (L-lines) and 244 (H-lines) may be returned.
+
+This reply is not yet fully documented; If you have further information on the contents of this reply, please contact paiRC.
+
+See Also
+--------
+The following are sent in response to a STATS h request-
+
+241 and 244 (multiple lines), 219
+
+Returned From
+-------------
+STATS
+
+
+Raw 242
+-------
+Format : 242 :Server Up <num> days, <time>
+Example: 242 :Server Up 37 days, 9:20:39
+Network: All
+
+Parameters
+----------
+<num>	The number of days the server has been up.
+<time>	The amount of time the server has been up.
+
+Info
+----
+Returned for a STATS u request.
+
+Notes
+-----
+The time is in addition to the number of days listed. (the example would mean 37 days and a bit over 9 hours)
+
+This time is since the last time the server was rebooted or reset. A simple netsplit will not reset the time.
+
+See Also
+--------
+The following are sent in sequence for a STATS u request-
+
+242, 250 (on most servers), 219
+
+Returned From
+-------------
+STATS u
+
+
+Raw 243
+-------
+Format : 243 <o> <mask> <password> <user> <??> <class>
+Example: 243 O *@calley.stlnet.com * konjump 4293328895 1
+Network: Most
+
+Parameters
+----------
+<o>	Capital O for a global operator, lowercase o for a local operator.
+<mask>	Mask matched against userhost.
+<password>	This is technically the password field, but it is shown as an asterisk for obvious reasons.
+<user>	Name of the operator.
+<class>	The connection class of the operator. (Y-lines)
+<??>	Unsure.
+
+Info
+----
+A series of these are sent in reply to a STATS o request.
+
+Notes
+-----
+A STATS o request lists O-lines, which determine which hosts are allowed to become IRC operators. A user must have both a userhost matching an O-line and the appropriate password to become an operator.
+
+Thanks to Justin H for helping clear up some of this information.
+
+This reply is not yet fully documented; If you have further information on the contents of this reply, please contact paiRC.
+
+Variations
+----------
+Some servers or networks will not list O-lines, to help prevent hacking attempts.
+
+See Also
+--------
+The following are sent in response to a STATS o request-
+
+243 (multiple lines), 219
+
+Returned From
+-------------
+STATS
+
+
+Raw 244
+-------
+Format : 244 H <address> * <server> <??> <??>
+Example: 241 H * * indy.in.us.dal.net 0 -1
+Network: All
+
+Parameters
+----------
+<address>	IP mask for a server. (?)
+<server>	Server name or mask.
+<??>	Unsure.
+
+Info
+----
+A series of these are sent in reply to a STATS h request.
+
+Notes
+-----
+A STATS h request lists servers that are treated as hubs and servers that are treated as leaves. Both 241 (L-lines) and 244 (H-lines) may be returned.
+
+This reply is not yet fully documented; If you have further information on the contents of this reply, please contact paiRC.
+
+See Also
+--------
+The following are sent in response to a STATS h request-
+
+241 and 244 (multiple lines), 219
+
+Returned From
+-------------
+STATS
+
+
+Raw 247
+-------
+Format : 247 G <address> <timestamp> :<reason>
+Example: 247 G panzer@scscomm.com 900964094 :flood bots
+Network: Some
+
+Parameters
+----------
+<address>	Address mask matched against userhosts.
+<timestamp>	Timestamp for when the ban will expire. (??)
+<reason>	Reason for the ban.
+
+Info
+----
+A series of these are sent in reply to a STATS g request.
+
+Notes
+-----
+A STATS g request lists G-lines, which are bans global to an entire network. Users who match a G-line will be denied access to all servers on the network. Most G-lines last for a relatively short period of time, such as a week.
+
+This reply is not yet fully documented; If you have further information on the contents of this reply, please contact paiRC.
+
+Variations
+----------
+Some servers or networks will not list G-lines.
+
+See Also
+--------
+The following are sent in response to a STATS g request-
+
+247 (multiple lines), 219
+
+Returned From
+-------------
+STATS
+
+
+Raw 248
+-------
+Format : 248 U <host> * <??> <??> <??>
+Example: 248 U Uworld2.Undernet.Org * * 0 -1
+Network: Some
+
+Parameters
+----------
+<host>	The address that corresponds to the U-line.
+<??>	Unsure.
+
+Info
+----
+A series of these are sent in reply to a STATS U request (uppercase U) on networks that support U-lines.
+
+Notes
+-----
+A STATS U request lists U-lines, which give certain hosts special privledges. These privledges allow the changing of modes on channels without being an op on the channel or even on the channel. U-lines are used for special services intended for channel management or channel rescue and other related activities, such as UWorld on Undernet and ChanServ on DALnet.
+
+U-lines are generally global to all servers on a network.
+
+This reply is not yet fully documented; If you have further information on the contents of this reply, please contact paiRC.
+
+See Also
+--------
+The following are sent in response to a STATS U request on supported networks-
+
+248 (one or more lines), 219
+
+Returned From
+-------------
+STATS
+
+
+Raw 249
+-------
+Format : 249 :<info>
+Example: 249 :nick collisions 1879 unknown closes 11383991
+Network: All
+
+Parameters
+----------
+<info>	Various information.
+
+Info
+----
+A series of these are sent in reply to a STATS t or STATS z request, containing various debug and other information and statistics.
+
+Notes
+-----
+The actual contents of each reply are not yet documented; If you have further information on the contents of this reply, please contact paiRC.
+
+See Also
+--------
+The following are sent in response to a STATS t or z request-
+
+249 (multiple lines), 219
+
+Returned From
+-------------
+STATS
+
+
+Raw 250
+-------
+Format : 250 :Highest connection count: <total> (<num> clients)
+Example: 250 :Highest connection count: 2997 (2996 clients)
+Network: Most
+
+Parameters
+----------
+<total>	The highest total number of connections.
+<num>	The highest total number of client connections.
+
+Info
+----
+Returned for a STATS u request.
+
+Also returned on some networks during the connection process.
+
+Notes
+-----
+These numbers signify the highest count the server has had at any time since it was last rebooted.
+
+The total number of client connections includes all users and operators on the server.
+
+The total number of connections includes users and operators as well, but also includes server-to-server connections.
+
+Advanced
+--------
+If you subtract the second number from the first, you will get the highest count of server-to-server connections. For many servers, this will only be one. However, servers that host services or that are hubs will have higher counts.
+
+Variations
+----------
+On some servers (such as many EFnet servers) this will not be returned for any reason. Instead, replies 265 and 266 are sent on connection.
+
+See Also
+--------
+The following are sent in sequence for a STATS u request-
+
+242, 250 (most servers), 219
+
+The following are sent in sequence on connection and in response to a LUSERS command-
+
+251, 252, 253 (most servers), 254, 255, followed by either- 265 and 266, just 250, or a server notice
+
+Returned From
+-------------
+STATS u
+
+
+Raw 251
+-------
+Format : 251 :There are <user> users and <invis> invisible on <serv> servers
+Example: 251 :There are 5161 users and 33030 invisible on 58 servers
+Network: All
+
+Parameters
+----------
+<user>	The number of non-invisible users currently online.
+<invis>	The number of invisible users currently online.
+
+Info
+----
+Sent to all clients once a connection has been established and the user has successfully registered.
+
+Also sent in response to a LUSERS command.
+
+Notes
+-----
+These numbers are for the entire network, not just one server. Adding the first two numbers together will give you the current total user count on the entire network.
+
+See Also
+--------
+The following are sent in sequence on connection and in response to a LUSERS command-
+
+251, 252, 253 (most servers), 254, 255, followed by either- 265 and 266, just 250, or a server notice
+
+Returned From
+-------------
+LUSERS
+
+
+Raw 252
+-------
+Format : 252 <num> :operator(s) online
+Example: 252 40 :operator(s) online
+Network: All
+
+Parameters
+----------
+<num>	The number of IRC operators online
+
+Info
+----
+Sent to all clients once a connection has been established and the user has successfully registered.
+
+Also sent in response to a LUSERS command.
+
+Notes
+-----
+These numbers are for the entire network, not just one server.
+
+Note that if a network has no operators online, this will not be sent.
+
+See Also
+--------
+The following are sent in sequence on connection and in response to a LUSERS command-
+
+251, 252, 253 (most servers), 254, 255, followed by either- 265 and 266, just 250, or a server notice
+
+Returned From
+-------------
+LUSERS
+
+
+Raw 253
+-------
+Format : 253 <num> :unknown connection(s)
+Example: 253 11 :unknown connection(s)
+Network: Most
+
+Parameters
+----------
+<num>	The number of unknown connections
+
+Info
+----
+Sent to all clients once a connection has been established and the user has successfully registered.
+
+Also sent in response to a LUSERS command.
+
+Notes
+-----
+(?) is it server only or network wide? what exactly is it?
+
+Note that if there are no unknown connections, this will not be sent.
+
+Variations
+----------
+On certain servers this will not be returned.
+
+See Also
+--------
+The following are sent in sequence on connection and in response to a LUSERS command-
+
+251, 252, 253 (most servers), 254, 255, followed by either- 265 and 266, just 250, or a server notice
+
+Returned From
+-------------
+LUSERS
+
+
+Raw 254
+-------
+Format : 254 <num> :channels formed
+Example: 254 6206 :channels formed
+Network: All
+
+Parameters
+----------
+<num>	The number of channels currently formed
+
+Info
+----
+Sent to all clients once a connection has been established and the user has successfully registered.
+
+Also sent in response to a LUSERS command.
+
+Notes
+-----
+This number is for the entire network.
+
+(?) does it include secret and private channels? (seems not)
+
+(?) does it include &local channels? (seems so)
+
+Note that if a network has no visible channels, this will not be sent.
+
+See Also
+--------
+The following are sent in sequence on connection and in response to a LUSERS command-
+
+251, 252, 253 (most servers), 254, 255, followed by either- 265 and 266, just 250, or a server notice
+
+Returned From
+-------------
+LUSERS
+
+
+Raw 255
+-------
+Format : 255 :I have <user> clients and <serv> servers
+Example: 255 :I have 1195 clients and 1 servers
+Network: All
+
+Parameters
+----------
+<user>	The number of users connected to this server
+<serv>	The number of other servers connected to this server
+
+Info
+----
+Sent to all clients once a connection has been established and the user has successfully registered.
+
+Also sent in response to a LUSERS command.
+
+Notes
+-----
+These numbers are for the current server only.
+
+Note that the server count does not include the current server, it is a count of all OTHER servers connected to it.
+
+See Also
+--------
+The following are sent in sequence on connection and in response to a LUSERS command-
+
+251, 252, 253 (most servers), 254, 255, followed by either- 265 and 266, just 250, or a server notice
+
+Returned From
+-------------
+LUSERS
+
+
+Raw 256
+-------
+Format : 256 :Administrative info about <server>
+Example: 256 :Administrative info about irc1.sprynet.com
+Network: All
+
+Info
+----
+Returned in reply to an ADMIN request.
+
+See Also
+--------
+The following are sent in order in reply to an ADMIN command-
+
+256, 257, 258, 259
+
+Returned From
+-------------
+ADMIN
+
+
+Raw 257
+-------
+Format : 257 :<info>
+Example: 257 :Emory University - Rollins School of Public Health
+Network: All
+
+Parameters
+----------
+<info>	Administrative info. (line 1)
+
+Info
+----
+Returned in reply to an ADMIN request.
+
+Notes
+-----
+This may contain e-mail, web addresses, nicknames, postal addresses, corporation names, etc. You cannot rely on any specific information being in any single line or even the entire reply as a whole.
+
+See Also
+--------
+The following are sent in order in reply to an ADMIN command-
+
+256, 257, 258, 259
+
+Returned From
+-------------
+ADMIN
+
+
+Raw 258
+-------
+Format : 258 :<info>
+Example: 258 :Tim Flavin (BigTim)
+Network: All
+
+Parameters
+----------
+<info>	Administrative info. (line 2)
+
+Info
+----
+Returned in reply to an ADMIN request.
+
+Notes
+-----
+This may contain e-mail, web addresses, nicknames, postal addresses, corporation names, etc. You cannot rely on any specific information being in any single line or even the entire reply as a whole.
+
+See Also
+--------
+The following are sent in order in reply to an ADMIN command-
+
+256, 257, 258, 259
+
+Returned From
+-------------
+ADMIN
+
+
+Raw 259
+-------
+Format : 259 :<info>
+Example: 259 :Email att@undernet.org
+Network: All
+
+Parameters
+----------
+<info>	Administrative info. (line 2)
+
+Info
+----
+Returned in reply to an ADMIN request.
+
+Notes
+-----
+This may contain e-mail, web addresses, nicknames, postal addresses, corporation names, etc. You cannot rely on any specific information being in any single line or even the entire reply as a whole.
+
+See Also
+--------
+The following are sent in order in reply to an ADMIN command-
+
+256, 257, 258, 259
+
+Returned From
+-------------
+ADMIN
+
+
+Raw 263
+-------
+Format : 263 :Server load is temporarily too heavy. Please wait a while and try again.
+Example: 263 :Server load is temporarily too heavy. Please wait a while and try again.
+Network: Some
+
+Info
+----
+Returned on some networks when the server has too much traffic to send a reply to a command.
+
+Notes
+-----
+Although the text implies that it is the server's load in general that causes this reply, in practice it seems to be sent on a user-to-user basis when a user attempts to request too much information from a server. For example, if you attempt too many STATS requests in a short period of time, you will get this error.
+
+
+Raw 265
+-------
+Format : 265 :Current local users: <curr> Max: <max>
+Example: 265 :Current local users: 2292 Max: 3017
+Network: Some
+
+Parameters
+----------
+<curr>	The number of users connected to this server
+<max>	The highest number of users ever connected to this server
+
+Info
+----
+Returned on some networks during the connection process.
+
+Also sent in response to a LUSERS command on these networks.
+
+Notes
+-----
+These numbers are just for the current server.
+
+The maximum count signifies the highest count of users the server has had at any time since it was last rebooted.
+
+Variations
+----------
+On many servers, these replies are not used- instead, a 250 reply or server notice is sent.
+
+See Also
+--------
+The following are sent in sequence on connection and in response to a LUSERS command-
+
+251, 252, 253 (most servers), 254, 255, followed by either- 265 and 266, just 250, or a server notice
+
+Returned From
+-------------
+LUSERS
+
+
+Raw 266
+-------
+Format : 266 :Current global users: <curr> Max: <max>
+Example: 266 :Current global users: 21759 Max: 26097
+Network: Some
+
+Parameters
+----------
+<curr>	The number of users connected to the entire network
+<max>	The highest number of users ever connected to the entire network
+
+Info
+----
+Returned on some networks during the connection process.
+
+Also sent in response to a LUSERS command on these networks.
+
+Notes
+-----
+These numbers are for the entire network.
+
+The maximum count signifies the highest count of users that the entire NETWORK has had at any time since the SERVER was last rebooted. Different servers within the same net may return different values for this, even though it is a network-wide value.
+
+Variations
+----------
+On many servers, these replies are not used- instead, a 250 reply or server notice is sent.
+
+See Also
+--------
+The following are sent in sequence on connection and in response to a LUSERS command-
+
+251, 252, 253 (most servers), 254, 255, followed by either- 265 and 266, just 250, or a server notice
+
+Returned From
+-------------
+LUSERS
+
+
+Raw 271
+-------
+Format : 271 <nick> <mask>
+Example: 271 DeafGuy *!*@*.aol.com
+Network: Some
+
+Parameters
+----------
+<nick>	The nickname whose SILENCE list is being viewed.
+<mask>	An entry in the user's SILENCE list.
+
+Info
+----
+These are returned when listing your or another user's SILENCE list.
+
+Notes
+-----
+You can view another user's SILENCE list, but you will only see masks that your current server knows about. Your server will only know about an entry if someone matching that entry sent a message via your server to that person. For example, if a user has a *!*@*.aol.com entry and you are on AOL, message the user before checking their SILENCE list to be sure that your server knows about any silence list entries.
+
+See Also
+--------
+The following are sent in response to a SILENCE list request-
+
+271 (zero or more lines), 272
+
+Returned From
+-------------
+SILENCE
+
+
+Raw 272
+-------
+Format : 272 :End of Silence List
+Example: 272 :End of Silence List
+Network: Some
+
+Info
+----
+This is returned at the end of a SILENCE list.
+
+Advanced
+--------
+Even if you requested another user's SILENCE list, their nick will not be in the usual part of the raw reply. However, the user's nickname WILL be in the reply where YOUR nick would usually be. ($1 in mIRC remotes.)
+
+See Also
+--------
+The following are sent in response to a SILENCE list request-
+
+271 (zero or more lines), 272
+
+Returned From
+-------------
+SILENCE
+
+
+Raw 280
+-------
+Format : 280 <address> <timestamp> <reason>
+Example: 280 *@www.* 902579316 Do not IRC from WWW machines
+Network: Undernet
+
+Parameters
+----------
+<address>	Address mask matched against userhosts.
+<timestamp>	Timestamp for when the ban will expire. (??)
+<reason>	Reason for the ban.
+
+Info
+----
+A series of these are sent in reply to a GLINE list.
+
+Notes
+-----
+GLINE by itself (or with a mask) lists matching G-lines, which are bans global to an entire network. Users who match a G-line will be denied access to all servers on the network. Most G-lines last for a relatively short period of time, such as a week.
+
+See Also
+--------
+The following are sent in response to a GLINE listing on Undernet-
+
+280 (one or more lines), 281
+
+Returned From
+-------------
+GLINE
+
+
+Raw 281
+-------
+Format : 281 :End of G-line List
+Example: 281 :End of G-line List
+Network: Undernet
+
+Info
+----
+This is returned at the end of a GLINE list.
+
+See Also
+--------
+The following are sent in response to a GLINE listing on Undernet-
+
+280 (one or more lines), 281
+
+Returned From
+-------------
+GLINE
+
+
+Raw 290
+-------
+Format : 290 :<num> ***** <topic> *****
+Example: 290 :0 ***** ircd Help *****
+Network: DALnet
+
+Parameters
+----------
+<num>	A number, always seemed to be zero. Not sure what it's purpose. (?)
+<topic>	A help topic.
+
+Info
+----
+This is sent at the beginning of a HELPOP help request, stating the help topic you are receiving info on.
+
+See Also
+--------
+The following raws are used by HelpOp-
+
+290, 291, 292, 293, 294
+
+Returned From
+-------------
+HELPOP
+
+
+Raw 291
+-------
+Format : 291 :<text>
+Example: 291 :NickServ permits users to 'register' a nickname, and stop
+Network: DALnet
+
+Parameters
+----------
+<text>	Text returned by DALnet's HelpOp.
+
+Info
+----
+This is used for the main section of a HELPOP help response, and contains the actual help info.
+
+See Also
+--------
+The following raws are used by HelpOp-
+
+290, 291, 292, 293, 294
+
+Returned From
+-------------
+HELPOP
+
+
+Raw 292
+-------
+Format : 292 : ***** Go to #dalnethelp if you have any further questions *****
+Example: 292 : ***** Go to #dalnethelp if you have any further questions *****
+Network: DALnet
+
+Info
+----
+This is sent at the end of any HELPOP help request.
+
+See Also
+--------
+The following raws are used by HelpOp-
+
+290, 291, 292, 293, 294
+
+Returned From
+-------------
+HELPOP
+
+
+Raw 293
+-------
+Format : 293 :<text>
+Example: 293 :If you need help on DALnet services, try...
+Network: DALnet
+
+Parameters
+----------
+<text>	Text returned by DALnet's HelpOp.
+
+Info
+----
+A series of these are returned as a generic response to an unrecognized HELPOP request on DALnet, or in response to 'HELPOP index'.
+
+See Also
+--------
+The following raws are used by HelpOp-
+
+290, 291, 292, 293, 294
+
+Returned From
+-------------
+HELPOP
+
+
+Raw 294
+-------
+Format : 294 :Your help-request has been forwarded to Help Operators
+Example: 294 :Your help-request has been forwarded to Help Operators
+Network: DALnet
+
+Info
+----
+This is sent at the end of a HELPOP request when your request was forwarded to Help Operators.
+
+Notes
+-----
+A request will be forwarded if no info was available, or you specifically requested it to be forwarded.
+
+See HelpOp on DALnet for details.
+
+See Also
+--------
+The following raws are used by HelpOp-
+
+290, 291, 292, 293, 294
+
+Returned From
+-------------
+HELPOP
+
+
+Raw 298
+-------
+Format : 298 <nick> :Nickname conflict has been resolved
+Example: 298 pai :Nickname conflict has been resolved
+Network: ChatSpace
+
+Parameters
+----------
+<nick>	The new nickname you have selected
+
+Info
+----
+This is returned when you have chosen a new nickname in response to a nickname conflict.
+
+Notes
+-----
+This seems to be specific to servers running ChatSpace server software.
+
+See Also
+--------
+The following raws relate to nickname conflicts on ChatSpace-
+
+298, 510, 512
+
+Returned From
+-------------
+NICK
+
+
+Raw 301
+-------
+Format : 301 <nick> :<away>
+Example: 301 SunSword :auto-away [Since: Aug 6 4:38 PM CDT]
+Network: Most
+
+Parameters
+----------
+<nick>	Nickname of a user.
+<away>	Information (provided by the user) on why he or she is (or was, for WHOWAS) away.
+
+Info
+----
+This is sent to tell you that a given user is away. (set using the AWAY command.) It will be returned, if applicable, for a WHOIS or WHOWAS request, and also if you send a PRIVMSG to a user that is away.
+
+Notes
+-----
+The away information is provided by the user and may contain anything.
+
+This is sent, as a reminder, when you send a PRIVMSG to a user, but will not be returned for a NOTICE, INVITE, or any other sort of interation.
+
+Variations
+----------
+A few servers and networks have started to disable the away feature, and those networks would of course not return this numeric.
+
+See Also
+--------
+The following are sent in response to a WHOIS request-
+
+311, 319 (if applicable), 312, 301 (if applicable), 313 (if applicable), 317 (if applicable), 318
+
+The following are sent in response to a WHOWAS request-
+
+314, 312, 301 (if applicable), 369
+
+Returned From
+-------------
+WHOIS, WHOWAS, PRIVMSG
+
+
+Raw 302
+-------
+Format : 302 :<userhosts>
+Example: 302 :Gamera=-keekee@dt091n15.san.rr.com pai=+pain@d2052192151.imsday.com
+Network: All
+
+Parameters
+----------
+<userhosts>	A series of USERHOST replies.
+
+Info
+----
+This is returned in reply to a USERHOST request.
+
+Notes
+-----
+Each reply is formatted as nickname=+userid@host. 'nickname' is the user's nickname, 'userid' is their userid (identd) and 'host' is their host address. + means that they are here (not away), and will be a - (hyphen) if they are away.
+
+A USERHOST reply will contain from zero to five replies. When you send the USERHOST request you can include up to five nicks; the reply will only contain info on the nicks that exist, if any. If none of the nicks you requested exist, a blank reply will be returned.
+
+Note that the USERHOST reply will contain the proper case for each nickname, regardless of the actual case used in the original request.
+
+Variations
+----------
+Some networks allow more than five nicknames to be requested in a USERHOST request. If so, the USERHOST replies will be broken across multiple lines. (not sure if they are compacted five to a line or one line for each five nicks requested...?)
+
+Undernet will return a 401 reply (no such nickname) for each user that you request a userhost for that does not exist. The USERHOST reply will still be returned with the missing users not present.
+
+Returned From
+-------------
+USERHOST
+
+
+Raw 303
+-------
+Format : 303 :<nicknames>
+Example: 303 Clarice lipstick markNY sweetbabe
+Network: All
+
+Parameters
+----------
+<nicknames>	Nicknames of users that are on IRC.
+
+Info
+----
+This is sent in reply to an ISON request. The reply contains all nicknames that are on IRC out of the set of nicknames originally requested. For example, if 'ISON a b c d' was sent, and b and d are on IRC, then this reply will return 'b d' for 'nicknames'.
+
+Notes
+-----
+Note that the ISON reply will contain the proper case for each nickname, regardless of the actual case used in the original request.
+
+If no nicknames are online from the requested list, a blank 303 reply is returned.
+
+This reply is used by notify lists and features in most clients, including mIRC, so be careful when using this in a script.
+
+Returned From
+-------------
+ISON
+
+
+Raw 305
+-------
+Format : 305 :You are no longer marked as being away
+Example: 305 :You are no longer marked as being away
+Network: All
+
+Info
+----
+This is returned when you return from being AWAY. (by setting a blank away reason.)
+
+Notes
+-----
+This reply does not make any mention of why you were AWAY or for how long, it merely informs you that you are no longer marked as AWAY.
+
+See Also
+--------
+When you set an AWAY message, 306 is returned.
+
+Returned From
+-------------
+AWAY
+
+
+Raw 306
+-------
+Format : 306 :You have been marked as being away
+Example: 306 :You have been marked as being away
+Network: All
+
+Info
+----
+This is returned when you set yourself AWAY.
+
+Notes
+-----
+This reply does not make any mention of your AWAY reason, it merely informs you that your AWAY message has been accepted.
+
+See Also
+--------
+When you return from away, 305 is returned.
+
+Returned From
+-------------
+AWAY
+
+
+Raw 307
+-------
+Format : 307 :<userips>
+Example: 307 :Spekkio=-Spekkio@209.86.144.138 T_A=-~tomandre@195.204.242.136
+Network: Undernet
+
+Parameters
+----------
+<userips>	A series of USERIP replies.
+
+Info
+----
+This is returned in reply to a USERIP request.
+
+Notes
+-----
+The main difference between this and USERHOST is that a numeric ip is always returned, even if the user has a resolved (normal) host.
+
+Each reply is formatted as nickname=+userid@ip. 'nickname' is the user's nickname, 'userid' is their userid (identd) and 'ip' is their numeric ip. + means that they are here (not away), and will be a - (hyphen) if they are away.
+
+A USERIP reply will contain from zero to five replies. When you send the USERIP request you can include up to five nicks; the reply will only contain info on the nicks that exist, if any. If none of the nicks you requested exist, a blank reply will be returned.
+
+Note that the USERIP reply will contain the proper case for each nickname, regardless of the actual case used in the original request.
+
+Also note that a 401 reply (no such nickname) will also be returned for each user that you request a USERIP for that does not exist. The USERIP reply will still be returned with the missing users not present.
+
+See Also
+--------
+The following raw is used for USERHOST-
+
+302
+
+Returned From
+-------------
+USERIP
+
+
+Raw 310
+-------
+Format : 310 <nick> :looks very helpful
+Example: 310 HelpfulOper :looks very helpful
+Network: DALnet
+
+Parameters
+----------
+<nick>	Nickname of a DALnet helpop or IRC operator.
+
+Info
+----
+This is sent as part of a reply to a WHOIS request on DALnet, if the user is a helpop or, sometimes, if the user is an IRC operator.
+
+Notes
+-----
+If you have details on the exact times this message may appear, please contact paiRC.
+
+See Also
+--------
+The following are sent in response to a WHOIS request-
+
+311, 319 (if applicable), 312, 301 (if applicable), 313 (if applicable), 310 (if applicable), 317 (if applicable), 318
+
+Returned From
+-------------
+WHOIS
+
+
+Raw 311
+-------
+Format : 311 <nick> <username> <address> * :<info>
+Example: 311 Gamera keekee dt091n15.san.rr.com * :Justy Ueki Tylor
+Network: All
+
+Parameters
+----------
+<nick>	Nickname of a user you WHOIS'd.
+<username>	Username (identd) of a user.
+<address>	The user's full address. (IP or resolved)
+<info>	The user's "real name" info.
+
+Info
+----
+This is sent as part of a reply to a WHOIS request. It contains the user's identd and address as well as their "real name" information as given by them. (this could be anything that the user chooses.)
+
+Notes
+-----
+To get the user's full address, take the nick, add an exclamation point, add the username, add an at-sign, and add the address. So for the above example you'd get Gamera!keekee@dt091n15.san.rr.com.
+
+See Also
+--------
+The following are sent in response to a WHOIS request-
+
+311, 319 (if applicable), 312, 301 (if applicable), 313 (if applicable), 317 (if applicable), 318
+
+Returned From
+-------------
+WHOIS
+
+
+Raw 312 - WHOIS server info
+---------------------------
+Format : 312 <nick> <server> :<info>
+Example: 312 DrDthmtch NewBrunswick.NJ.US.Undernet.Org :[204.127.145.17] AT&T WorldNet IRC Chat Service
+Network: All
+
+Parameters
+----------
+<nick>	Nickname of a user you WHOIS'd.
+<server>	The server that the user is connected to.
+<info>	Some information about the server the user is connected to.
+
+Info
+----
+This is sent as part of a reply to a WHOIS request. It contains the server a user is connected to.
+
+Notes
+-----
+The format of the info section may contain anything and is usually of no importance.
+
+See Also
+--------
+The following are sent in response to a WHOIS request-
+
+311, 319 (if applicable), 312, 301 (if applicable), 313 (if applicable), 317 (if applicable), 318
+
+Returned From
+-------------
+WHOIS
+
+
+Raw 312 - WHOWAS server info
+----------------------------
+Format : 312 <nick> <server> :<signoff>
+Example: 312 mspai los-angeles.ca.us.undernet.org :Thu Aug 6 16:00:35 1998
+Network: All
+
+Parameters
+----------
+<nick>	Nickname of a user you WHOWAS'd.
+<server>	The server that the user was connected to.
+<signoff>	The date and time the user signed off or changed nicknames.
+
+Info
+----
+This is sent as part of a reply to a WHOWAS request. It contains the server a user was connected to, as well as information on when they last were on.
+
+Notes
+-----
+The format of the signoff section will not necessarily be in the same format on all servers.
+
+The time should correspond to when the user signed off or changed nicknames.
+
+See Also
+--------
+The following are sent in response to a WHOWAS request-
+
+314, 312, 301 (if applicable), 369
+
+Returned From
+-------------
+WHOWAS
+
+
+Raw 313
+-------
+Format : 313 <nick> :is an IRC Operator
+Example: 313 DieLamers :is an IRC Operator
+Network: All
+
+Parameters
+----------
+<nick>	Nickname of an IRC operator.
+
+Info
+----
+This is sent as part of a reply to a WHOIS request, if the user is an IRC operator.
+
+Variations
+----------
+Some servers may change this message or even use if for entirely different reasons, such as helpers or other officials. The best way to handle this numeric is simply to display it verbatim. (if scanning for operator status, check for the word 'operator' being present.)
+
+See Also
+--------
+The following are sent in response to a WHOIS request-
+
+311, 319 (if applicable), 312, 301 (if applicable), 313 (if applicable), 317 (if applicable), 318
+
+Returned From
+-------------
+WHOIS
+
+
+Raw 314
+-------
+Format : 314 <nick> <username> <address> * :<info>
+Example: 314 paipai goddess 12.10.230.191 * :pai-type person
+Network: All
+
+Parameters
+----------
+<nick>	Nickname of a user you WHOWAS'd.
+<username>	Username (identd) of a user.
+<address>	The user's full address. (IP or resolved)
+<info>	The user's "real name" info.
+
+Info
+----
+This is sent as part of a reply to a WHOWAS request. It contains the user's identd and address as well as their "real name" information as given by them. (this could be anything that the user chose.)
+
+Notes
+-----
+To get the user's full address, take the nick, add an exclamation point, add the username, add an at-sign, and add the address. So for the above example you'd get paipai!goddess@12.10.230.191.
+
+Remember that this info is who a user WAS, so if they reconnect later, the info may be totally different.
+
+See Also
+--------
+The following are sent in response to a WHOWAS request-
+
+314, 312, 301 (if applicable), 369
+
+Returned From
+-------------
+WHOWAS
+
+
+Raw 315
+-------
+Format : 315 <request> :End of /WHO list.
+Example: 315 #channel :End of /WHO list.
+Network: All
+
+Parameters
+----------
+<request>	The WHO request that was made.
+
+Info
+----
+This is sent at the end of a WHO request.
+
+Notes
+-----
+The 'request' parameter will be the exact query you sent, whether a single text string, wildcards, a channel, etc.
+
+If a single WHO request returns information on multiple users or sets of users, this numeric is returned only once, at the end of all replies.
+
+Although the other parts of a WHO reply contain the proper case of nicknames, channels, and other information, this reply will contain the case of the request exactly as you made it.
+
+See Also
+--------
+The following are sent in response to a WHO request-
+
+352 (zero or more lines), 315
+
+Returned From
+-------------
+WHO
+
+
+Raw 317
+-------
+Format : 317 <nick> <seconds> <signon> :<info>
+Example: 317 TheUser 1649 902430973 :seconds idle, signon time
+Network: All
+
+Parameters
+----------
+<nick>	Nickname of a user you WHOIS'd.
+<seconds>	Number of seconds user is idle.
+<signon>	A timestamp representing when the user signed on to IRC.
+<info>	A quick description of the previous two parameters.
+
+Info
+----
+This is sent as part of a reply to a WHOIS request, if the user is on the same server as you. It includes the number of seconds the user is idle as well as when they signed on to IRC.
+
+Notes
+-----
+Idle time is measured from the last time the user sent a PRIVMSG. No other commands will reset a user's idle time.
+
+The signon time can be converted to a standard date and time using $asctime().
+
+The 'info' parameter will not change from WHOIS to WHOIS, but it may differ between servers or networks. It exists solely to help document the purpose of the values in the reply.
+
+Advanced
+--------
+Although this only appears when you are on the same server as a user, you can still get this information from another server. Simply send WHOIS user user (with the nickname listed twice, as shown) and the WHOIS reply will be sent from the user's server and not taken from the information on your current server.
+
+Variations
+----------
+A few networks may not return the signon time, but just the idle time. Most major networks return both, however.
+
+See Also
+--------
+The following are sent in response to a WHOIS request-
+
+311, 319 (if applicable), 312, 301 (if applicable), 313 (if applicable), 317 (if applicable), 318
+
+Returned From
+-------------
+WHOIS
+
+
+Raw 318
+-------
+Format : 318 <request> :End of /WHOIS list.
+Example: 318 pai,mspai :End of /WHOIS list.
+Network: All
+
+Parameters
+----------
+<request>	The WHOIS request that was made.
+
+Info
+----
+This is sent at the end of a WHOIS request.
+
+Notes
+-----
+The 'request' parameter will be the exact query you sent, whether a single nickname, multiple nicknames, or a wildcard string.
+
+If a single WHOIS request returns information on multiple users, this numeric is returned only once, at the end of all replies.
+
+Although the other parts of a WHOIS reply contain the proper case of nicknames, this reply will contain the case of the nickname(s) exactly as you originally requested them.
+
+See Also
+--------
+The following are sent in response to a WHOIS request-
+
+311, 319 (if applicable), 312, 301 (if applicable), 313 (if applicable), 317 (if applicable), 318
+
+Returned From
+-------------
+WHOIS
+
+
+Raw 319
+-------
+Format : 319 <nick> :<channels>
+Example: 319 pai :@#peace&protection
+Network: All
+
+Parameters
+----------
+<nick>	Nickname of a user you WHOIS'd.
+<channels>	One or more channels a user is on.
+
+Info
+----
+This is sent as part of a reply to a WHOIS request. It contains the channels a user is on. If the user is opped on a channel, the channel name will be prefixed with a @. Likewise, if a user is opped on a channel, it will be prefixed with a +.
+
+Notes
+-----
+Note that secret and private channels will not be listed.
+
+This is the only part of a WHOIS reply that may appear multiple times for a given user. If a user is on a large number of channels, multiple 319 replies will be returned to contain all of the channels. This normally should not occur, except for special exceptions such as X and W on Undernet.
+
+Advanced
+--------
+Some networks support the usermode +d, which makes a user "deaf", or unable to see channel text. If a user is deaf, all channels listed in the WHOIS reply will be prefixed with a -. (hyphen)
+
+Variations
+----------
+Certain networks may return @+ prefixing a channel if the user is both opped and voiced on the channel.
+
+Not all networks support deaf mode. (see advanced)
+
+See Also
+--------
+The following are sent in response to a WHOIS request-
+
+311, 319 (if applicable), 312, 301 (if applicable), 313 (if applicable), 317 (if applicable), 318
+
+Returned From
+-------------
+WHOIS
+
+
+Raw 321
+-------
+Format : 321 Channel :Users Name
+Example: 321 Channel :Users Name
+Network: All
+
+Info
+----
+Sent at the beginning of a LIST reply, before the channels are listed.
+
+Variations
+----------
+The actual text of this reply may vary slightly.
+
+See Also
+--------
+The following are returned for a LIST request-
+
+321, 322 (zero or more), 323
+
+Returned From
+-------------
+LIST
+
+
+Raw 322
+-------
+Format : 322 <channel> <users> :<topic>
+Example: 322 #chat 12 :The fire in one's soul defines who they are
+Network: All
+
+Parameters
+----------
+<channel>	A channel name.
+<users>	Number of users on the channel.
+<topic>	The current channel topic.
+
+Info
+----
+This is returned for each channel in a LIST reply.
+
+Notes
+-----
+The user count includes all users, invisable or otherwise.
+
+If no topic is currently set, none will be given, although the colon will still be included.
+
+If no channels match a LIST request, no 322 replies will be returned.
+
+See Also
+--------
+The following are returned for a LIST request-
+
+321, 322 (zero or more), 323
+
+Returned From
+-------------
+LIST
+
+
+Raw 323
+-------
+Format : 323 :End of /LIST
+Example: 323 :End of /LIST
+Network: All
+
+Info
+----
+Sent at the end of a LIST reply, after all matching channels are listed.
+
+See Also
+--------
+The following are returned for a LIST request-
+
+321, 322 (zero or more), 323
+
+Returned From
+-------------
+LIST
+
+
+Raw 324
+-------
+Format : 324 <channel> <mode>
+Example: 324 #mychannel +tn
+Network: All
+
+Parameters
+----------
+<channel>	A channel name.
+<mode>	The current channel modes.
+
+Info
+----
+This is returned for a MODE request.
+
+Notes
+-----
+If the channel has no modes, a single + will be returned.
+
+Keys and limits, if present, will be returned in the MODE reply. Keys will not be returned in the mode reply if you are not in the channel, of course.
+
+Variations
+----------
+Undernet does not return the channel key in a MODE reply unless you are actually opped on the channel.
+
+Some networks do not return the channel limit in a MODE reply unless you are actually on the channel.
+
+See Also
+--------
+The following are returned for a MODE reply-
+
+324, 329 (on most networks)
+
+Returned From
+-------------
+MODE
+
+
+Raw 328
+-------
+Format : 328 <channel> :<url>
+Example: 328 #square :http://www.square.org
+Network: DALnet
+
+Parameters
+----------
+<channel>	A channel you have recently joined.
+<url>	The ChanServ URL set for that channel.
+
+Info
+----
+This is sent to you by ChanServ when you join a registered channel.
+
+Notes
+-----
+Unlike the other information you receive when you join a channel, this raw depends on how lagged you are to DALnet services.
+
+
+Raw 329
+-------
+Format : 329 <channel> <time>
+Example: 329 #peace&protection 884921151
+Network: Most
+
+Parameters
+----------
+<channel>	A channel name.
+<time>	The time the channel was created.
+
+Info
+----
+This is returned as part of a MODE request, giving you the time the channel was created.
+
+Notes
+-----
+Use $asctime() to convert 'time' to a readable value.
+
+Variations
+----------
+Some networks may not return this reply.
+
+See Also
+--------
+The following are returned for a MODE reply-
+
+324, 329 (on most networks)
+
+Returned From
+-------------
+MODE
+
+
+Raw 331
+-------
+Format : 331 <channel> :No topic is set.
+Example: 331 #hello :No topic is set
+Network: All
+
+Parameters
+----------
+<channel>	A channel name.
+
+Info
+----
+This is returned for a TOPIC request if the channel has no current topic.
+
+On JOIN, if a channel has no topic, this is not returned. Instead, no topic-related replies are returned.
+
+See Also
+--------
+The following are returned for a TOPIC reply, if a topic actually exists-
+
+332, 333
+
+Returned From
+-------------
+TOPIC
+
+
+Raw 332
+-------
+Format : 332 <channel> :<topic>
+Example: 332 #peace&protection :Peace & Protection 3.14abcd, it kicks more ass then that damn taco bell dog on speed - firez.com/p&p/
+Network: All
+
+Parameters
+----------
+<channel>	A channel name.
+<topic>	The current topic on the channel.
+
+Info
+----
+This is returned for a TOPIC request or when you JOIN, if the channel has a topic.
+
+Notes
+-----
+If the channel does not have a topic, then TOPIC will return a 331 reply, and JOIN will not return anything for the topic.
+
+See Also
+--------
+The following are returned for a TOPIC reply-
+
+332, 333
+
+The following is returned for a TOPIC request, if no topic exists-
+
+331
+
+The following are returned, in sequence, when joining a channel-
+
+332 (if a topic is set), 333 (if a topic is set), 353 (one or more), 366
+
+Note that mIRC will also request the channel MODE (replies 324, 329) when joining a channel.
+
+Returned From
+-------------
+TOPIC, JOIN
+
+
+Raw 333
+-------
+Format : 333 <channel> <nickname> <time>
+Example: 333 #boredom IAmBored 902508764
+Network: Most
+
+Parameters
+----------
+<channel>	A channel name.
+<nickname>	User who last set the channel topic.
+<time>	The time the user set the current channel topic.
+
+Info
+----
+This is returned for a TOPIC request or when you JOIN, if the channel has a topic.
+
+Notes
+-----
+Use $asctime() to convert 'time' to a readable value.
+
+If the channel does not have a topic, then TOPIC will return a 331 reply, and JOIN will not return anything for the topic.
+
+Variations
+----------
+Certain servers or networks may not return this reply, but the majority of them will.
+
+See Also
+--------
+The following are returned for a TOPIC reply-
+
+332, 333
+
+The following is returned for a TOPIC request, if no topic exists-
+
+331
+
+The following are returned, in sequence, when joining a channel-
+
+332 (if a topic is set), 333 (if a topic is set), 353 (one or more), 366
+
+Note that mIRC will also request the channel MODE (replies 324, 329) when joining a channel.
+
+Returned From
+-------------
+TOPIC, JOIN
+
+
+Raw 341
+-------
+Format : 341 <nick> <channel>
+Example: 341 person #mychannel
+Network: All
+
+Parameters
+----------
+<nick>	Nickname of a user you INVITE'd.
+<channel>	Channel they were invited to.
+
+Info
+----
+This is returned when you successfully INVITE a user to a channel, to inform you that the INVITE was sent.
+
+Returned From
+-------------
+INVITE
+
+
+Raw 351
+-------
+Format : 351 <version>.<debug> <server> :<info>
+Example: 351 u2.10.04.resolv8. NewBrunswick.NJ.US.Undernet.Org :M20B>ceEIKl2MptX
+Network: All
+
+Parameters
+----------
+<version>	The base version, plus any patches, of IRC the server is running.
+<debug>	Any debug modes the server is running.
+<server>	The name of the server.
+<info>	Any additional info. (?)
+
+Info
+----
+This is returned when you request the VERSION of a server.
+
+Notes
+-----
+
+Returned From
+-------------
+VERSION
+
+
+Raw 352
+-------
+Format : 352 <channel> <username> <address> <server> <nick> <flags> :<hops> <info>
+Example: 352 #peace&protection IsaacHayes sdn-ar-004mokcitP324.dialsprint.net NewBrunswick.NJ.US.Undernet.Org DrDthmtch H+ :4 Isaac Hayes (QuickScript.ml.org)
+Network: All
+
+Parameters
+----------
+<channel>	A channel the user is on, or * for none visible.
+<username>	The username (identd) of the user.
+<address>	The IP or resolved address (host) of the user.
+<server>	The server the user is connected to.
+<nick>	The nickname of the user.
+<flags>	Flags for a user regarding IRCop status, away status, channel op status, etc.
+<hops>	The number of hops from your server the the user's server.
+<info>	The user's "real name" info.
+
+Info
+----
+This is returned by a WHO request, one line for each user that is matched.
+
+Notes
+-----
+If the user is on multiple channels, only one will be returned. If the WHO was performed on a channel, this will always be the channel that was requested. Private and secret channels are not returned unless you are on them as well.
+
+The flags will always start with H (here) if the user is not away, or G (gone) if the user is away. This is followed by a * (asterisk) if the user is an IRCop, then a @ or + if the user is opped or voiced on the listed channel. This is then followed by a d (lowercase) if the user is deaf, such as X and W on Undernet.
+
+The hop count ('hops') is a count of the number of servers between your server and their server. If they are on your server, this will be 0. If they are on a server directly connected to your server, this is 1. If there is one intervening server, this is 2, etc.
+
+The info (real name) is provided by the user on signon and may contain anything.
+
+Variations
+----------
+Not all servers support deaf mode.
+
+See Also
+--------
+The following are sent in response to a WHO request-
+
+352 (zero or more lines), 315
+
+Returned From
+-------------
+WHO
+
+
+Raw 353
+-------
+Format : 353 = <channel> :<names>
+Example: 353 = #funfactory :chattie dizz takshaka poshgal @LDI Aldebaran Sweet2 James54
+Network: All
+
+Parameters
+----------
+<channel>	The channel you are receiving a NAMES list for.
+<names>	Nicknames of users on the channel.
+
+Info
+----
+This is returned for a NAMES request for a channel, or when you initially join a channel. It contains a list of every user on the channel.
+
+Notes
+-----
+If a user is opped on a channel, their nickname will be prefixed with a @. If voiced, it will be prefixed with a +.
+
+Note that a NAMES reply for a channel you are not on will not include invisible users.
+
+If a NAMES reply cannot fit into a single 353 reply, multiple replies are returned until all users are listed.
+
+Advanced
+--------
+If a NAMES request returns only a 366 (end of NAMES) reply without any 353 replies, then the channel is secret or private, or does not exist.
+
+If a NAMES request returns a single 353 reply that contains no nicknames, then the channel exists and is not secret or private, however all users on the channel are invisible.
+
+Variations
+----------
+Certain networks may return @+ prefixing a nickname if the user is both opped and voiced on the channel.
+
+See Also
+--------
+The following are returned for a NAMES request-
+
+353 (zero or more), 366
+
+The following are returned, in sequence, when joining a channel-
+
+332 (if a topic is set), 333 (if a topic is set), 353 (one or more), 366
+
+Note that mIRC will also request the channel MODE (replies 324, 329) when joining a channel.
+
+Returned From
+-------------
+NAMES, JOIN
+
+
+Raw 364
+-------
+Format : 364 <server> <hub> :<hops> <info>
+Example: 364 SaltLake.UT.US.UnderNet.Org Charlotte-R.NC.US.Undernet.org :5 P10 [207.173.16.33] [irc.aros.net] ArosNet UnderNet Se
+Network: All
+
+Parameters
+----------
+<server>	A server name.
+<hub>	The server that this server is connected to.
+<hops>	The number of servers between your server and this server.
+
+Info
+----
+A series of these are sent in reply to a LINKS request.
+
+Notes
+-----
+Remember that each server will be listed once in the 'server' section, but since 'hub' is the server connected to, some servers will be listed multiple times in that column, and some (that are not hubs) will not be listed at all.
+
+The hop count will be 0 for your current server, 1 for servers directly connected to your server, 2 for servers that have one server between your server and them, etc.
+
+See Also
+--------
+In response to a LINKS request, the following are sent-
+
+364 (zero or more), 365
+
+Returned From
+-------------
+LINKS
+
+
+Raw 365
+-------
+Format : 365 <mask> :End of /LINKS list.
+Example: 365 * :End of /LINKS list.
+Network: All
+
+Parameters
+----------
+<mask>	The mask requested in the LINKS command.
+
+Info
+----
+This is sent at the end of a LINKS list.
+
+Notes
+-----
+If you use LINKS with a mask (such as LINKS *.net) then only matching servers are sent, and your mask will be returned in this reply. If you don't use a mask, 'mask' will be a *. (asterisk)
+
+See Also
+--------
+In response to a LINKS request, the following are sent-
+
+364 (zero or more), 365
+
+Returned From
+-------------
+LINKS
+
+
+Raw 366
+-------
+Format : 366 <channel> :End of /NAMES list.
+Example: 366 #california :End of /NAMES list.
+Network: All
+
+Parameters
+----------
+<channel>	The channel you were receiving a NAMES list for.
+
+Info
+----
+This is returned at the end of a NAMES list, after all visible names are returned.
+
+See Also
+--------
+The following are returned for a NAMES request-
+
+353 (zero or more), 366
+
+The following are returned, in sequence, when joining a channel-
+
+332 (if a topic is set), 333 (if a topic is set), 353 (one or more), 366
+
+Note that mIRC will also request the channel MODE (replies 324, 329) when joining a channel.
+
+Returned From
+-------------
+NAMES, JOIN
+
+
+Raw 367
+-------
+Format : 367 <channel> <ban> <nick> <time>
+Example: 367 #mIRC-Scripts *!*RPG@*.dialsprint.net |AZ| 902510598
+Network: All
+
+Parameters
+----------
+<channel>	The channel the bans are on.
+<ban>	A ban on the channel.
+<nick>	The user who set the ban.
+<time>	The time the ban was set.
+
+Info
+----
+A series of these are sent when a channel banlist is requested. (with MODE #chan +b.)
+
+Notes
+-----
+Use $asctime() to convert 'time' to a readable value.
+
+For an empty banlist, no 367 replies will be returned- only the final 368 numeric.
+
+Variations
+----------
+Some older servers may not support the 'nick' and 'time' parameters.
+
+See Also
+--------
+When a banlist is requested, the following are returned-
+
+367 (zero or more), 368
+
+Returned From
+-------------
+MODE
+
+
+Raw 368
+-------
+Format : 368 <channel> :End of Channel Ban List
+Example: 368 #hentai :End of Channel Ban List
+Network: All
+
+Parameters
+----------
+<channel>	A channel you just viewed a banlist for.
+
+Info
+----
+This is sent at the end of a channel banlist, when requested. (with MODE #chan +b.)
+
+See Also
+--------
+When a banlist is requested, the following are returned-
+
+367 (zero or more), 368
+
+Returned From
+-------------
+MODE
+
+
+Raw 369
+-------
+Format : 369 <request> :End of WHOWAS
+Example: 369 HeLeft :End of WHOWAS
+Network: All
+
+Parameters
+----------
+<request>	The WHOWAS request that was made.
+
+Info
+----
+This is sent at the end of a WHOWAS request.
+
+Notes
+-----
+The 'request' parameter will be the exact query you sent, whether a single nickname or multiple nicknames.
+
+If a single WHOWAS request returns information on multiple users, this numeric is returned only once, at the end of all replies.
+
+Although the other parts of a WHOWAS reply contain the proper case of nicknames, this reply will contain the case of the nickname(s) exactly as you originally requested them.
+
+See Also
+--------
+The following are sent in response to a WHOWAS request-
+
+314, 312, 301 (if applicable), 369
+
+Returned From
+-------------
+WHOWAS
+
+
+Raw 371
+-------
+Format : 371 :<info>
+Example: 371 :The UnderNet code is based upon version 2.8.10.
+Network: All
+
+Parameters
+----------
+<info>	A line of information.
+
+Info
+----
+A series of these are sent in reply to an INFO request.
+
+Notes
+-----
+An INFO reply usually contains similar information, on any server or network, about the origins of IRC.
+
+Since the information is usually the same, but not guaranteed to be in any format or of any use, a script should just display these as-is.
+
+See Also
+--------
+The following are sent for an INFO reply-
+
+371 (multiple lines), 374
+
+Returned From
+-------------
+INFO
+
+
+Raw 372
+-------
+Format : 372 :- <info>
+Example: 372 :- NO BOTS! *** Ports: 6660-6669 *** Problems? --> irc@irc.amug.org
+Network: Most
+
+Parameters
+----------
+<info>	A single line from the server's message of the day.
+
+Info
+----
+This is sent in reply to a MOTD request or on connection. In most cases, multiple replies will be sent, one for each line in the MOTD.
+
+Variations
+----------
+Some servers do not include the hyphen at the beginning of MOTD replies, so you cannot rely on the actual text starting at the second word.
+
+Some servers use a different numeric for MOTD replies, such as 377 or 378. The format and purpose remains the same, however.
+
+See Also
+--------
+The following are sent for a Message of the Day-
+
+375 (usually), 372 (one or more), 376
+
+Some servers send 377 or 378 replies instead of 372.
+
+Returned From
+-------------
+MOTD
+
+
+Raw 374
+-------
+Format : 374 :End of /INFO list.
+Example: 374 :End of /INFO list.
+Network: All
+
+Info
+----
+This is sent at the end of an INFO reply.
+
+See Also
+--------
+The following are sent for an INFO reply-
+
+371 (multiple lines), 374
+
+Returned From
+-------------
+INFO
+
+
+Raw 375
+-------
+Format : 375 :- <server> Message of the Day -
+Example: 375 :- NewBrunswick.NJ.US.Undernet.Org Message of the Day -
+Network: Most
+
+Parameters
+----------
+<server>	The server returning the message of the day. (most likely the one you are connected to)
+
+Info
+----
+This is sent in reply to a MOTD request or on connection, immediately preceding the text for the actual message of the day.
+
+Notes
+-----
+When requesting a MOTD from a server other than your current server, the 375 may not be sent before the body of the MOTD.
+
+Variations
+----------
+Some servers do not include the hyphen at the beginning of MOTD replies, so you cannot rely on the server name being in the same place.
+
+Some servers do not send a 375 reply prior to the message of the day.
+
+See Also
+--------
+The following are sent for a Message of the Day-
+
+375 (usually), 372 (one or more), 376
+
+Some servers send 377 or 378 replies instead of 372.
+
+Returned From
+-------------
+MOTD
+
+
+Raw 376
+-------
+Format : 376 :End of /MOTD command.
+Example: 376 :End of /MOTD command.
+Network: All
+
+Info
+----
+This is sent in reply to a MOTD request or on connection. This should be the last numeric sent in reply, after the text of the message of the day itself.
+
+See Also
+--------
+The following are sent for a Message of the Day-
+
+375 (usually), 372 (one or more), 376
+
+Some servers send 377 or 378 replies instead of 372.
+
+Returned From
+-------------
+MOTD
+
+
+Raw 377
+-------
+Format : 377 :- <info>
+Example: 377 :- 28/6/1998 14:32
+Network: Some
+
+Parameters
+----------
+<info>	A single line from the server's message of the day.
+
+Info
+----
+This is sent in reply to a MOTD request or on connection. In most cases, multiple replies will be sent, one for each line in the MOTD.
+
+Notes
+-----
+The standard reply to MOTD uses 372 numerics, not 377. This numeric is sent by certain servers instead of 372 to bypass clients and scripts that hide the MOTD, among other reasons.
+
+Variations
+----------
+Some servers do not include the hyphen at the beginning of MOTD replies, so you cannot rely on the actual text starting at the second word.
+
+Some servers use a different numeric for MOTD replies, such as 378. (the standard numeric is 372, not this one.) The format and purpose remains the same, however.
+
+See Also
+--------
+The following are sent normally for a Message of the Day-
+
+375 (usually), 372 (one or more), 376
+
+Some servers send 377 (this reply) or 378 replies instead of 372.
+
+Returned From
+-------------
+MOTD
+
+
+Raw 378
+-------
+Format : 378 :- <info>
+Example: 378 :- Welcome to IRC
+Network: Some
+
+Parameters
+----------
+<info>	A single line from the server's message of the day.
+
+Info
+----
+This is sent in reply to a MOTD request or on connection. In most cases, multiple replies will be sent, one for each line in the MOTD.
+
+Notes
+-----
+The standard reply to MOTD uses 372 numerics, not 378. This numeric is sent by certain servers instead of 372 to bypass clients and scripts that hide the MOTD, among other reasons.
+
+Variations
+----------
+Some servers do not include the hyphen at the beginning of MOTD replies, so you cannot rely on the actual text starting at the second word.
+
+Some servers use a different numeric for MOTD replies, such as 377. (the standard numeric is 372, not this one.) The format and purpose remains the same, however.
+
+See Also
+--------
+The following are sent normally for a Message of the Day-
+
+375 (usually), 372 (one or more), 376
+
+Some servers send 378 (this reply) or 377 replies instead of 372.
+
+Returned From
+-------------
+MOTD
+
+
+Raw 381
+-------
+Format : 381 :You are now an IRC Operator
+Example: 381 :You are now an IRC Operator
+Network: All
+
+Info
+----
+This numeric is returned when you successfuly become an IRC operator using the OPER command.
+
+Notes
+-----
+This should be preceded by an automatic usermode change that includes +o or +O. (IRC operator)
+
+Returned From
+-------------
+OPER
+
+
+Raw 382
+-------
+Format : 382 <file> :Rehashing
+Example: 382 ircd.conf :Rehashing
+Network: All
+
+Info
+----
+This numeric is simply returned when you REHASH (reload) the IRCd configuration file.
+
+Returned From
+-------------
+REHASH
+
+
+Raw 391
+-------
+Format : 391 <server> :<time>
+Example: 391 webbernet.mi.us.dal.net :Friday August 7 1998 -- 17:26 -04:00
+Network: All
+
+Parameters
+----------
+<server>	Any server.
+<time>	The current date and time at the server.
+
+Info
+----
+This is sent in reply to a TIME request.
+
+Notes
+-----
+The reply may be in any format, so unless you are writing for a specific server or network, it is best not to assume the format is in any one form.
+
+Variations
+----------
+Some networks (such as Undernet) add additional fields before 'time', such as a $ctime style timestamp.
+
+Returned From
+-------------
+TIME
+
+
+Raw 401 - No such nick
+----------------------
+Format : 401 <nickname> :No such nick
+Example: 401 MrHappy :No such nick
+Network: All
+
+Parameters
+----------
+<nickname>	The nickname that does not exist.
+
+Info
+----
+Returned when a command (such as WHOIS or PRIVMSG) is used on a nickname that does not exist.
+
+
+Raw 401 - Target left Undernet
+------------------------------
+Format : 401 * :Target left UnderNet. Failed to deliver: <message>
+Example: 401 * :Target left UnderNet. Failed to deliver: Hi there, what's up?
+Network: Undernet
+
+Parameters
+----------
+<message>	The message that was originally sent to the user.
+
+Info
+----
+Returned when a message is sent to a user, but the user disconnects from the network before they receive it.
+
+Notes
+-----
+The reply does not indicate who the message was sent to, nor whether it was a NOTICE or a PRIVMSG.
+
+This reply will not be returned for channel messages- only private messages.
+
+Returned From
+-------------
+NOTICE, PRIVMSG
+
+
+Raw 402
+-------
+Format : 402 <server> :No such server
+Example: 402 LasVegas.NV.US.Undernet.org: No such server
+Network: All
+
+Parameters
+----------
+<server>	The server name that does not exist.
+
+Info
+----
+Returned when trying to send a command to a server that does not exist. This could be a command such as VERSION which is always sent to a server, or a command such as WHOIS if the request was specifically sent to another server.
+
+
+Raw 403
+-------
+Format : 403 <channel> :No such channel
+Example: 403 #joinme :No such channel
+Network: All
+
+Parameters
+----------
+<channel>	The name of the channel that does not exist.
+
+Info
+----
+Returned when trying to use a command on a channel that is currently empty.
+
+Notes
+-----
+This obviously will never be returned for channels you are in, since they are not empty.
+
+Returned From
+-------------
+NOTICE, PRIVMSG, KICK, MODE, TOPIC, PART
+
+
+Raw 404
+-------
+Format : 404 <channel> :Cannot send to channel
+Example: 404 #anime :Cannot send to channel
+Network: All
+
+Parameters
+----------
+<channel>	The name of the channel.
+
+Info
+----
+Returned when you try to send a message to a channel, but the server refuses to let you send the message due to channel MODE settings.
+
+When this reply is returned, nothing is seen on the channel to indicate you attempted to say something.
+
+Notes
+-----
+Your message can be refused for two reasons-
+
+* If a channel is MODE +n, and you are not on the channel, you cannot send a message to it.
+* If a channel is MODE +m, and you are not opped (+o) or voiced (+v) on the channel, you cannot send a message to it.
+
+Variations
+----------
+On many networks, the following restriction also applies-
+
+* If a channel has a MODE +b (ban) that matches you, you cannot send a message to it.
+
+Returned From
+-------------
+NOTICE, PRIVMSG
+
+
+Raw 405
+-------
+Format : 405 <channel> :You have joined too many channels
+Example: 405 #testing :You have joined too many channels
+Network: All
+
+Parameters
+----------
+<channel>	The name of the channel.
+
+Info
+----
+Returned if you try to JOIN a channel and you have already reached the maximum number of channels for that server.
+
+You will not be able to JOIN any more channels until you PART some of your current channels.
+
+Notes
+-----
+The most common limit is ten channels, although some servers may limit you to five.
+
+Returned From
+-------------
+JOIN
+
+
+Raw 406
+-------
+Format : 406 <nickname> :There was no such nickname
+Example: 406 WhoAmI :There was no such nickname
+Network: All
+
+Parameters
+----------
+<nickname>	The nickname of the user who didn't exist.
+
+Info
+----
+Returned if you do a WHOWAS and information on the user cannot be found.
+
+Notes
+-----
+There is an expire time on WHOWAS info- If someone leaves IRC, you must WHOWAS them within a few minutes or you will not find their info.
+
+Returned From
+-------------
+WHOWAS
+
+
+Raw 407
+-------
+Format : 407 <target> :Duplicate recipients. No message delivered
+Example: 407 user@StLouis.MO.US.UnderNet.org :Duplicate recipients. No message delivered
+Network: Most
+
+Parameters
+----------
+<target>	The target that matched more than one user.
+
+Info
+----
+Returned if you send a message using id@server format and there is more than one user that matches the given id@server.
+
+Notes
+-----
+You will rarely if ever see this message as it should only occur when using the id@server format. (explained in the advanced section of PRIVMSG)
+
+Returned From
+-------------
+PRIVMSG, NOTICE
+
+
+Raw 409
+-------
+Format : 409 :No origin specified
+Example: 409 :No origin specified
+Network: All
+
+Info
+----
+Returned if you use PING with no parameters.
+
+Notes
+-----
+This is not related to a CTCP ping.
+
+Returned From
+-------------
+PING
+
+
+Raw 411
+-------
+Format : 411 :No recipient given (<command>)
+Example: 411 :No recipient given (PRIVMSG)
+Network: All
+
+Parameters
+----------
+<command>	The command that was used.
+
+Info
+----
+Returned when a command (such as PRIVMSG) is used to send a message, but no recipient was given.
+
+Notes
+-----
+Some commands (such as WHOIS) return raw 431 when no nickname is given.
+
+Other commands (such as INVITE) return raw 461 when no nickname is given, for 'insufficient parameters'.
+
+Returned From
+-------------
+PRIVMSG, NOTICE
+
+
+Raw 412
+-------
+Format : 412 :No text to send
+Example: 412 :No text to send
+Network: All
+
+Info
+----
+Returned when no message is given to send for a PRIVMSG or NOTICE.
+
+Returned From
+-------------
+PRIVMSG, NOTICE
+
+
+Raw 413
+-------
+Format : 413 <mask> :No toplevel domain specified
+Example: 413 $* :No toplevel domain specified
+Network: All
+
+Info
+----
+This error is returned when you try to do a global message using the $ format and you don't specify any toplevel domain.
+
+Notes
+-----
+A toplevel domain is the final portion of a hostname, such as 'net', 'com', 'uk', etc. As seen here, an example that will produce this error would be to send a message to '$*'.
+
+See Also
+--------
+Errors related to toplevel domains in global messages-
+
+413, 414
+
+Returned From
+-------------
+PRIVMSG, NOTICE
+
+
+Raw 414
+-------
+Format : 414 <mask> :Wildcard in toplevel Domain
+Example: 414 $*.* :Wildcard in toplevel Domain
+Network: All
+
+Info
+----
+This error is returned when you try to do a global message using the $ format and you include wildcards (* or ?) in the toplevel domain.
+
+Notes
+-----
+A toplevel domain is the final portion of a hostname, such as 'net', 'com', 'uk', etc. As seen here, an example that will produce this error would be to send a message to '$*.*'.
+
+See Also
+--------
+Errors related to toplevel domains in global messages-
+
+413, 414
+
+Returned From
+-------------
+PRIVMSG, NOTICE
+
+
+Raw 416
+-------
+Format : 416 <command> :Too many lines in the output, restrict your query
+Example: 416 WHO :Too many lines in the output, restrict your query
+Network: Undernet
+
+Parameters
+----------
+<command>	A command that you performed.
+
+Info
+----
+This is sent if you use a command that requests too much information to be sent from an Undernet server. For example, performing WHO 0 (to list all users) will usually result in this error.
+
+Notes
+-----
+This error is not returned until after a certain portion of a reply has already been returned.
+
+The only command that this will currently be returned for is WHO. (?)
+
+Returned From
+-------------
+WHO
+
+
+Raw 421
+-------
+Format : 421 <command> :Unknown command
+Example: 421 BLAH :Unknown command
+Network: All
+
+Parameters
+----------
+<command>	The IRC command that was not recognized by the server.
+
+Info
+----
+Returned when you use an IRC command that the server does not recognize.
+
+Notes
+-----
+Common reasons for this error-
+
+* Using a command from another network on a server that doesn't support it. (such as SILENCE)
+* Misspelling a command.
+* Missing a mIRC alias.
+
+
+Raw 422
+-------
+Format : 422 :MOTD File is missing
+Example: 422 :MOTD File is missing
+Network: All
+
+Info
+----
+Returned instead of the Message of the Day if the server does not have a MOTD file.
+
+Notes
+-----
+You will rarely if ever see this error.
+
+See Also
+--------
+Standard MOTD replies will return-
+
+375 (usually), 372 (one or more), 376
+
+Returned From
+-------------
+MOTD
+
+
+Raw 423
+-------
+Format : 423 <server> :No administrative info available
+Example: 423 phoenix.az.us.undernet.org :No administrative info available
+Network: All
+
+Parameters
+----------
+<server>	The server that has no administrative info
+
+Info
+----
+Returned when there is no information to return for an ADMIN request.
+
+Notes
+-----
+The error does not make any distinction to why the information is not available, only that none was found.
+
+You should rarely if ever see this error.
+
+See Also
+--------
+A standard ADMIN command will reply with, in sequence-
+
+256, 257, 258, 259
+
+Returned From
+-------------
+ADMIN
+
+
+Raw 431
+-------
+Format : 431 :No nickname given
+Example: 431 :No nickname given
+Network: All
+
+Info
+----
+Returned when a command (such as WHOIS) is used that requires a nickname, but none given.
+
+Notes
+-----
+Some commands (such as INVITE) return raw 461 when no nickname is given, for 'insufficient parameters'.
+
+PRIVMSG and NOTICE return raw 411 when no nickname is given.
+
+Returned From
+-------------
+WHOIS, WHOWAS, NICK
+
+
+Raw 432
+-------
+Format : 432 <nickname> :Erroneus Nickname
+Example: 432 !hey! :Erroneus Nickname
+Network: All
+
+Parameters
+----------
+<nickname>	The nickname that was attempted.
+
+Info
+----
+Returned when trying to change your nickname to an invalid nickname.
+
+Notes
+-----
+Valid nicknames must contain only letters, numbers, and the characters -_[]{}\|`^. The nickname cannot begin with a digit or a hyphen.
+
+Note that often, if a nickname contains an invalid character, the server will just truncate it at the first invalid character and use it, instead of returning this error.
+
+Variations
+----------
+On DALnet, attempts to use some nicknames will return an extended reply such as
+
+432 X :Erroneus Nickname: Reserved in cooperation with Undernet
+
+The reply follows the same format, but includes a note explaining why the nickname cannot be used.
+
+Returned From
+-------------
+NICK
+
+
+Raw 433 - Nickname in use
+-------------------------
+Format : 433 <nickname> :Nickname is already in use.
+Example: 433 God :Nickname is already in use.
+Network: All
+
+Parameters
+----------
+<nickname>	The nickname that was attempted.
+
+Info
+----
+Returned when trying to change your nickname to a nickname that someone else is using.
+
+Notes
+-----
+Note that nicknames are case insensitive. Also, [ and {, ] and }, \ and |, - and _, and ` and ^ are pairs of characters that are considered the same for nicknames.
+
+This means that if there is a user named [user] existed, you could not use the nick {user}.
+
+Returned From
+-------------
+NICK
+
+
+Raw 433 - DALnet nickname registered
+------------------------------------
+Format : 433 <nickname> :Nickname is registered to someone else.
+Example: 433 pai :Nickname is registered to someone else.
+Network: Dalnet
+
+Parameters
+----------
+<nickname>	The nickname that is registered to someone else.
+
+Info
+----
+Returned to warn you that a nickname you are attempting to use is registered to another user.
+
+Notes
+-----
+This will typically be accompanied by notices from NickServ requesting you to choose another nickname.
+
+
+Raw 436
+-------
+Format : 436 <nickname> :Nickname collision KILL
+Example: 436 pai :Nickname collision KILL
+Network: Some
+
+Parameters
+----------
+<nickname>	The nickname being collided. (most likely yours)
+
+Info
+----
+Sent when a nickname collision occurs on your nickname. Followed immediately by being disconnected from the server.
+
+A nickname collision occurs when, for some reason, two users end up with the same nickname at the same time. When this happens one must be removed to prevent confusion and problems.
+
+Variations
+----------
+Note that many networks simply disconnect on nickname collision, or send an ERROR, not this numeric.
+
+
+Raw 437
+-------
+Format : 437 <channel> :Cannot change nickname while banned on channel
+Example: 437 #unix :Cannot change nickname while banned on channel
+Network: Some
+
+Parameters
+----------
+<channel>	The channel you are banned on.
+
+Info
+----
+Returned when you attempt to change nicknames, but you are banned (MODE +b) on a channel that you are currently in. You must PART the channel before you can change nicknames.
+
+Notes
+-----
+The main purpose of this prohibition is so that a ban will prevent a nickname flood.
+
+Returned From
+-------------
+NICK
+
+
+Raw 438
+-------
+Format : 438 <nick> :Nick change too fast. Please wait <sec> seconds.
+Example: 438 pai4 :Nick change too fast. Please wait 30 seconds.
+Network: Some
+
+Parameters
+----------
+<nick>	The nickname that was attempted.
+<sec>	The number of seconds you must wait before attempting again.
+
+Info
+----
+This raw is returned by many networks when you try to change nicknames too often, too fast.
+
+Variations
+----------
+Some networks will return this even if the nick change could not have been successful (invalid nick, nick in use, etc.) Some networks, such as Undernet, only count nickname changes that are successful.
+
+Returned From
+-------------
+NICK
+
+
+Raw 439
+-------
+Format : 439 <target> :Target change too fast. Please wait <sec> seconds.
+Example: 439 X :Target change too fast. Please wait 104 seconds.
+Network: Some
+
+Parameters
+----------
+<target>	The target (nickname or channel) that was attempted.
+<sec>	The number of seconds you must wait before you can attempt that target.
+
+Info
+----
+This is used on some networks as a way to prevent spammers and other mass-messagers. This is returned when a user tries to message too many different users or join too many different channels in a short period of time.
+
+Variations
+----------
+The format of this raw is different on DALnet-
+
+439 CBE :Message target change too fast. Please wait 121 seconds
+
+Notice the addition of the word 'Message'.
+
+Returned From
+-------------
+NOTICE, PRIVMSG, JOIN
+
+
+Raw 441
+-------
+Format : 441 <nickname> <channel> :They aren't on that channel
+Example: 441 Freak #mirc :They aren't on that channel
+Network: All
+
+Parameters
+----------
+<nickname>	The nickname being targeted
+<channel>	The channel being targeted
+
+Info
+----
+Returned when you attempt to perform a channel-specific operation (such as MODE or KICK) on a user who isn't in the channel.
+
+Notes
+-----
+You will often get this if you attempt to kick a user but someone else kicks them before you do.
+
+If the user does not actually exist at all, 401 will be returned instead.
+
+Variations
+----------
+On Undernet, this will also be returned in reply to an erroneous CNOTICE or CPRIVMSG.
+
+Returned From
+-------------
+KICK, MODE
+
+
+Raw 442
+-------
+Format : 442 <channel> :You're not on that channel
+Example: 442 #test :You're not on that channel
+Network: All
+
+Parameters
+----------
+<channel>	The channel you are not on.
+
+Info
+----
+Returned when you attempt to perform a channel command on a channel you are not on. Note that not all channel-related commands actually require you to be on the channel.
+
+Variations
+----------
+On some networks, this will be returned for trying to view the TOPIC from outside the channel.
+
+Some networks will not allow you to view the channel banlist (MODE +b) from outside the channel.
+
+Returned From
+-------------
+MODE, TOPIC, PART
+
+
+Raw 443
+-------
+Format : 443 <nickname> <channel> :is already on channel
+Example: 443 Kyusaku #anime :is already on channel
+Network: All
+
+Parameters
+----------
+<nickname>	The user being invited.
+<channel>	The channel being invited to.
+
+Info
+----
+Returned when inviting a user to a channel that they are already on.
+
+Returned From
+-------------
+INVITE
+
+
+Raw 445
+-------
+Format : 445 :SUMMON has been disabled
+Example: 445 :SUMMON has been disabled
+Network: Some
+
+Info
+----
+This is sent in response to a SUMMON command on many networks.
+
+Notes
+-----
+Originally, SUMMON was used on IRC to request that a user come to IRC if they were logged into a machine, but not actually on IRC. It's no longer used (anywhere that I'm aware of) and it's use will return this raw.
+
+Variations
+----------
+Some networks (such as Undernet) return a 'no such command' error instead of this raw.
+
+Returned From
+-------------
+SUMMON
+
+
+Raw 446
+-------
+Format : 446 :USERS has been disabled
+Example: 446 :USERS has been disabled
+Network: Some
+
+Info
+----
+This is sent in response to a USERS command on many networks.
+
+Notes
+-----
+Originally, USERS was used on IRC to look up users who were logged into a machine, but not actually on IRC. It's no longer used (anywhere that I'm aware of) and it's use will return this raw.
+
+Variations
+----------
+Some networks (such as Undernet) return a 'no such command' error instead of this raw.
+
+Returned From
+-------------
+USERS
+
+
+Raw 451
+-------
+Format : 451 <command> :Register first.
+Example: 451 WHOIS :Register first.
+Network: All
+
+Parameters
+----------
+<command>	The command being attempted
+
+Info
+----
+Returned when attempting to use other IRC commands before being fully logged into the IRC server.
+
+Notes
+-----
+When you connect to the IRC server you must send USER and NICK commands (and optionally a PASS) before you can send any other commands.
+
+
+Raw 455
+-------
+Format : 455 :Your username <ident> contained the invalid character(s) <chars> and has been changed to <new>. Please use only the characters 0-9 a-z A-Z _ - or . in your username. Your username is the part before the @ in your email address.
+Example: 455 :Your username a//b//c contained the invalid character(s) //// and has been changed to abc. Please use only the characters 0-9 a-z A-Z _ - or . in your username. Your username is the part before the @ in your email address.
+Network: DALnet
+
+Parameters
+----------
+<ident>	The identd you attempted to use.
+<chars>	The invalid characters in that identd.
+<new>	The new identd you have been assigned.
+
+Info
+----
+This is returned when you sign on to DALnet with an invalid identd. (username)
+
+Notes
+-----
+This may be used on networks other than DALnet.
+
+
+Raw 461
+-------
+Format : 461 <command> :Not enough parameters
+Example: 461 KICK :Not enough parameters
+Network: All
+
+Parameters
+----------
+<command>	The command that you did not give enough parameters for
+
+Info
+----
+Returned when using a command but not specifying all of the required parameters.
+
+Notes
+-----
+Some commands (such as WHOIS) return raw 431 when no nickname is given.
+
+PRIVMSG and NOTICE return raw 411 when no nickname is given.
+
+
+Raw 462
+-------
+Format : 462 :You may not reregister
+Example: 462 :You may not reregister
+Network: All
+
+Info
+----
+Returned when attempting to change your user details or other signon information. You must reconnect to reissue these commands.
+
+Returned From
+-------------
+USER, PASS
+
+
+Raw 467
+-------
+Format : 467 <channel> :Channel key already set
+Example: 467 #locked :Channel key already set
+Network: All
+
+Parameters
+----------
+<channel>	The channel that has the key set.
+
+Info
+----
+Returned when attempting to set a key on a channel that already has a key set.
+
+Notes
+-----
+You must unset the old key (-k) before setting a new key. (+k) This must be done using two seperate MODE commands.
+
+Returned From
+-------------
+MODE
+
+
+Raw 468
+-------
+Format : 468 <channel> :Only servers can change that mode
+Example: 468 #pptesting :Only servers can change that mode
+Network: DALnet
+
+Parameters
+----------
+<channel>	The channel the mode change was attempted on.
+
+Info
+----
+This is returned on DALnet when attempting to change a server-only mode.
+
+Notes
+-----
+The only channel mode I know of that is server-only is +r (registered channel) but I may be wrong on this.
+
+Returned From
+-------------
+MODE
+
+
+Raw 471
+-------
+Format : 471 <channel> :Cannot join channel (+l)
+Example: 471 #chaos :Cannot join channel (+l)
+Network: All
+
+Parameters
+----------
+<channel>	The channel you are attempting to join.
+
+Info
+----
+Returned when attempting to JOIN a channel that has already reached it's user limit.
+
+Notes
+-----
+A channel can set a user limit by setting a MODE +l with a maximum number of users. Once that many users are in the channel, any other users attempting to JOIN will get this reply.
+
+Advanced
+--------
+If a user is prevented from joining a channel for more than one reason (for example, a MODE +i and a MODE +k) then the reason returned will be the first matching reason from this list-
+
+* Channel limit (MODE +l, raw 471)
+* Invite-only channel (MODE +i, raw 473)
+* User is banned (MODE +b, raw 474)
+* Invalid channel key (MODE +k, raw 475)
+
+Variations
+----------
+On Undernet, a channel op can INVITE a user to allow them to bypass a channel's user limit.
+
+Returned From
+-------------
+JOIN
+
+
+Raw 472
+-------
+Format : 472 <char> :is unknown mode char to me
+Example: 472 g :is unknown mode char to me
+Network: All
+
+Parameters
+----------
+<char>	The mode you are attempting to set on the channel.
+
+Info
+----
+Returned when attempting to change the channel MODE to a mode that does not exist.
+
+Notes
+-----
+Be aware that certain MODEs may not be available on all networks, and that MODE characters are case sensitive.
+
+Returned From
+-------------
+MODE
+
+
+Raw 473
+-------
+Format : 473 <channel> :Cannot join channel (+i)
+Example: 473 #temple :Cannot join channel (+i)
+Network: All
+
+Parameters
+----------
+<channel>	The channel you are attempting to join.
+
+Info
+----
+Returned when attempting to JOIN a channel that is INVITE-only (MODE +i) without being invited.
+
+Notes
+-----
+A channel is invite-only if a channel op sets a MODE +i. Only a channel op can INVITE a user to an invite-only channel.
+
+Advanced
+--------
+If a user is prevented from joining a channel for more than one reason (for example, a MODE +i and a MODE +k) then the reason returned will be the first matching reason from this list-
+
+* Channel limit (MODE +l, raw 471)
+* Invite-only channel (MODE +i, raw 473)
+* User is banned (MODE +b, raw 474)
+* Invalid channel key (MODE +k, raw 475)
+
+Returned From
+-------------
+JOIN
+
+
+Raw 474
+-------
+Format : 474 <channel> :Cannot join channel (+b)
+Example: 474 #windows :Cannot join channel (+b)
+Network: All
+
+Parameters
+----------
+<channel>	The channel you are attempting to join.
+
+Info
+----
+Returned when attempting to JOIN a channel that you are banned from.
+
+Notes
+-----
+Bans are set using MODE +b- See MODE for details on bans.
+
+Advanced
+--------
+If a user is prevented from joining a channel for more than one reason (for example, a MODE +i and a MODE +k) then the reason returned will be the first matching reason from this list-
+
+* Channel limit (MODE +l, raw 471)
+* Invite-only channel (MODE +i, raw 473)
+* User is banned (MODE +b, raw 474)
+* Invalid channel key (MODE +k, raw 475)
+
+Variations
+----------
+On Undernet, a channel op can INVITE a user to allow them to join even if banned. Since, on Undernet, banned users cannot speak on a channel, it is recommended that you then give the user a voice (MODE +v) so that they may speak.
+
+Returned From
+-------------
+JOIN
+
+
+Raw 475
+-------
+Format : 475 <channel> :Cannot join channel (+k)
+Example: 475 #safe :Cannot join channel (+k)
+Network: All
+
+Parameters
+----------
+<channel>	The channel you are attempting to join.
+
+Info
+----
+Returned when attempting to JOIN a channel that has a key set (MODE +k) when you have not used the proper key.
+
+Notes
+-----
+Keys are set using MODE +k. Once a key is set users must specify it in their JOIN in order to enter the channel.
+
+Advanced
+--------
+If a user is prevented from joining a channel for more than one reason (for example, a MODE +i and a MODE +k) then the reason returned will be the first matching reason from this list-
+
+* Channel limit (MODE +l, raw 471)
+* Invite-only channel (MODE +i, raw 473)
+* User is banned (MODE +b, raw 474)
+* Invalid channel key (MODE +k, raw 475)
+
+Returned From
+-------------
+JOIN
+
+
+Raw 477 - DALnet need registered nick
+-------------------------------------
+Format : 477 <channel> :You need a registered nick to join that channel.
+Example: 477 #registered :You need a registered nick to join that channel.
+Network: DALnet
+
+Parameters
+----------
+<channel>	The channel you attempted to join.
+
+Info
+----
+This is returned when trying to join a channel with mode +R set, but without having a registered nick.
+
+Notes
+-----
+Channel mode +R (on DALnet) prevents anyone without a registered nick from joining a channel.
+
+Returned From
+-------------
+JOIN
+
+
+Raw 477 - Modeless channel
+--------------------------
+Format : 477 <channel> :Channel doesn't support modes
+Example: 477 +channel :Channel doesn't support modes
+Network: Some
+
+Parameters
+----------
+<channel>	The channel that does not support modes.
+
+Info
+----
+This is returned when trying to change or view the mode or topic on a modeless channel.
+
+Notes
+-----
+Modeless channels are channels whose first character is a +. (plus)
+
+Variations
+----------
+Note that not all servers that support modeless channels return this. On DALnet, for example, topics can be changed and mode requests just return a blank mode.
+
+Returned From
+-------------
+MODE, TOPIC
+
+
+Raw 478
+-------
+Format : 478 <channel> <ban> :Channel ban/ignore list is full
+Example: 478 #mirc *!sphere@* :Channel ban/ignore list is full
+Network: Some
+
+Parameters
+----------
+<channel>	The channel you are setting a ban on.
+<ban>	The ban being set.
+
+Info
+----
+Returned when attempting to set a ban on a channel that already has a full banlist.
+
+Notes
+-----
+Although all networks have a limit on the total number of bans allowed, not all networks will tell you when the list is full. (they will simply ignore extra bans.)
+
+Variations
+----------
+The size of a full banlist varies from network to network. For example, it is 30 on Undernet, and 60 on Dalnet.
+
+Returned From
+-------------
+MODE
+
+
+Raw 481
+-------
+Format : 481 :Permission Denied- You're not an IRC operator
+Example: 481 :Permission Denied- You're not an IRC operator
+Network: All
+
+Info
+----
+Returned when a non-IRC operator attempts to use a command (such as KILL) that requires IRC operator status.
+
+Notes
+-----
+Some servers may return this for certain variations of a normal command. For example, some networks will only all IRC operators to access some STATS replies.
+
+
+Raw 482
+-------
+Format : 482 <channel> :You're not channel operator
+Example: 482 #zt :You're not channel operator
+Network: All
+
+Parameters
+----------
+<channel>	The channel you don't have operator status on.
+
+Info
+----
+Returned when attempting to use a command (such as MODE) that requires you to be a channel operator, without first having operator status.
+
+Notes
+-----
+Simply requesting the MODE or TOPIC of a channel does not require you to be a channel operator.
+
+If a channel does not have MODE +t set, you do not need to be an operator to set a TOPIC either. (although most channels have this mode set.)
+
+Variations
+----------
+Not all networks require you to be a channel operator to INVITE users.
+
+Returned From
+-------------
+MODE, TOPIC, KICK, INVITE
+
+
+Raw 483
+-------
+Format : 483 :You cant kill a server!
+Example: 483 :You cant kill a server!
+Network: All
+
+Info
+----
+This error is returned if you try to use the KILL command on an IRC server.
+
+Notes
+-----
+To delink or kill servers, you must use other commands, such as DIE, CONNECT, and SQUIT.
+
+Returned From
+-------------
+KILL
+
+
+Raw 484
+-------
+Format : 484 <nick> <channel> :Cannot kill, kick or deop channel service
+Example: 484 W #peace&protection :Cannot kill, kick or deop channel service
+Network: Undernet
+
+Parameters
+----------
+<nick>	The nickname that was targeted.
+<channel>	The channel that the nickname is on.
+
+Info
+----
+This is returned on Undernet when you try to kick, deop, or kill X or W or another service bot.
+
+Returned From
+-------------
+KICK, KILL, MODE
+
+
+Raw 491
+-------
+Format : 491 :No O-lines for your host
+Example: 491 :No O-lines for your host
+Network: All
+
+Info
+----
+Returned when an OPER command is used by a user who is not allowed to be an IRC operator.
+
+Notes
+-----
+This reply is returned even if the password used in the OPER command is correct.
+
+Returned From
+-------------
+OPER
+
+
+Raw 501
+-------
+Format : 501 :Unknown MODE flag
+Example: 501 :Unknown MODE flag
+Network: All
+
+Info
+----
+Returned when setting your own MODE flags, but an unrecognized MODE character is used.
+
+Notes
+-----
+Be aware that certain MODEs may not be available on all networks, and that MODE characters are case sensitive.
+
+Returned From
+-------------
+MODE
+
+
+Raw 502
+-------
+Format : 502 :Cant change mode for other users
+Example: 502 :Cant change mode for other users
+Network: All
+
+Info
+----
+Returned when you attempt to set or view a user's MODE flags, other than your own. Note that this is completely different from channel MODEs that target a user, such as +o and +v.
+
+Returned From
+-------------
+MODE
+
+
+Raw 510
+-------
+Format : 510 :You must resolve the nickname conflict before you can proceed
+Example: 510 :You must resolve the nickname conflict before you can proceed
+Network: ChatSpace
+
+Info
+----
+This is returned when you attempt to use other commands before first selecting a nickname you are allowed to use.
+
+Notes
+-----
+This seems to be specific to servers running ChatSpace server software.
+
+See Also
+--------
+The following raws relate to nickname conflicts on ChatSpace servers-
+
+298, 510, 512
+
+
+Raw 511
+-------
+Format : 511 <mask> :Your silence list is full
+Example: 511 *!*@*aol.com :Your silence list is full
+Network: Dalnet
+
+Parameters
+----------
+<mask>	The user mask you are trying to silence.
+
+Info
+----
+Returned when you attempt to SILENCE a user, but your silence list is full.
+
+Variations
+----------
+Undernet does not return this when your list is full, instead it just ignores additions after ten entries.
+
+Dalnet's SILENCE lists are limited to five entries.
+
+Returned From
+-------------
+SILENCE
+
+
+Raw 512 - Undernet no such gline
+--------------------------------
+Format : 512 <address> :No such gline
+Example: 512 *@blah.com :No such gline
+Network: Undernet
+
+Info
+----
+This is returned when a GLINE list request matches no current G-lines.
+
+Returned From
+-------------
+GLINE
+
+
+Raw 512 - ChatSpace nickname auth. required
+-------------------------------------------
+Format : 512 :Authorization required to use Registered Nickname <nick>
+Example: 512 :Authorization required to use Registered Nickname the-mob
+Network: ChatSpace
+
+Parameters
+----------
+<nick>	The nickname you need authorization for.
+
+Info
+----
+This is returned if you try to use a nickname that you don't have authorization to use.
+
+Notes
+-----
+This seems to be specific to servers running ChatSpace server software.
+
+See Also
+--------
+The following raws relate to nickname conflicts on ChatSpace servers-
+
+298, 510, 512
+
+Returned From
+-------------
+NICK
+
+
+Raw 512 - DALnet watch list too large
+-------------------------------------
+Format : 512 <nick> :Maximum size for WATCH-list is <num> entries
+Example: 512 someguy :Maximum size for WATCH-list is 128 entries
+Network: DALnet
+
+Parameters
+----------
+<nick>	The nickname that was not added to your WATCH list.
+<num>	The maximum number of users that can be in your WATCH list.
+
+Info
+----
+This error is returned when you try to add too many users to your WATCH list.
+
+Notes
+-----
+This reply will be returned exactly once for every user you try to add to your WATCH list over the limit. The limit on WATCH is usually 128 entries, but can be determined from the 005 raw (on signon) or this error message.
+
+See Also
+--------
+The following numerics are related to WATCH use-
+
+600, 601, 602, 603, 604, 605, 606, 607, 512
+
+Returned From
+-------------
+WATCH
+
+
+Raw 513
+-------
+Format : 513 If you can't connect, type /QUOTE PONG <code> or /PONG <code>
+Example: 513 If you can't connect, type /QUOTE PONG 1706545232 or /PONG 1706545232
+Network: OzOrg
+
+Parameters
+----------
+<code>	The PING code that you are to reply with.
+
+Info
+----
+This is sent on connect on some servers.
+
+Notes
+-----
+Most clients (including mIRC) automatically handle the PING PONG required to signon to servers. If a client does not support this, this message is intended to help the user connect.
+
+Variations
+----------
+This (or a similar raw or notice) may be used on other networks as well.
+
+
+Raw 600
+-------
+Format : 600 <nick> <userid> <host> <time> :logged offline
+Example: 600 mspai goddess pool009-max10.ds7-ca-us.dialup.earthlink.net 911248013 :logged offline
+Network: DALnet
+
+Parameters
+----------
+<nick>	The nickname of the user who signed off.
+<userid>	The userid (identd) of the user.
+<host>	The address (hostname) of the user.
+<time>	A timestamp of when they signed off.
+
+Info
+----
+This numeric is sent when a user on your WATCH list logs offline.
+
+Notes
+-----
+Other numerics are used for users signing on, or for telling you which users are online or offline at any given moment.
+
+See Also
+--------
+The following numerics are related to WATCH use-
+
+600, 601, 602, 603, 604, 605, 606, 607, 512
+
+
+Raw 601
+-------
+Format : 601 <nick> <userid> <host> <time> :logged online
+Example: 601 mspai goddess pool009-max10.ds7-ca-us.dialup.earthlink.net 911248013 :logged online
+Network: DALnet
+
+Parameters
+----------
+<nick>	The nickname of the user who logged on to IRC.
+<userid>	The userid (identd) of the user.
+<host>	The address (hostname) of the user.
+<time>	A timestamp of when they signed on.
+
+Info
+----
+This numeric is sent when a user on your WATCH list comes online.
+
+Notes
+-----
+Other numerics are used for users signing off, or for telling you which users are online or offline at any given moment.
+
+See Also
+--------
+The following numerics are related to WATCH use-
+
+600, 601, 602, 603, 604, 605, 606, 607, 512
+
+
+Raw 602
+-------
+Format : 602 <nick> <userid> <host> <time> :stopped watching
+Example: 602 mspai goddess pool009-max10.ds7-ca-us.dialup.earthlink.net 911247359 :stopped watching
+Network: DALnet
+
+Parameters
+----------
+<nick>	The nickname of the user you stopped watching.
+<userid>	The userid (identd) of the user.
+<host>	The address (hostname) of the user.
+<time>	A timestamp of when you stopped watching them. (?)
+
+Info
+----
+This numeric is sent when you remove a user from your WATCH list, using WATCH -nick.
+
+Notes
+-----
+The userid, host, and time are used based on the user currently being online. If the user is not online, an asterisk is used for userid and host, and time will be a zero.
+
+This numeric is for when you stop watching a user and has nothing to do with them leaving or joining IRC.
+
+See Also
+--------
+The following numerics are related to WATCH use-
+
+600, 601, 602, 603, 604, 605, 606, 607, 512
+
+Returned From
+-------------
+WATCH
+
+
+Raw 603
+-------
+Format : 603 :You have <mine> and are on <other> WATCH entries
+Example: 603 :You have 7 and are on 1 WATCH entries
+Network: DALnet
+
+Parameters
+----------
+<mine>	The number of users on your WATCH list.
+<other>	The number of users who have you on their WATCH list(s).
+
+Info
+----
+This numeric is sent in response to a WATCH S request, telling you the number of WATCH lists you are on and how many people are on yours.
+
+Notes
+-----
+Although you can find out how many people are 'watching' for you in this way, you have no way of finding out who they are.
+
+See Also
+--------
+The following numerics are related to WATCH use-
+
+600, 601, 602, 603, 604, 605, 606, 607, 512
+
+Returned From
+-------------
+WATCH
+
+
+Raw 604
+-------
+Format : 604 <nick> <userid> <host> <time> :is online
+Example: 604 SB tikiman mcrigal2.student.Princeton.EDU 911076465 :is online
+Network: DALnet
+
+Parameters
+----------
+<nick>	The nickname of the user who is on IRC.
+<userid>	The userid (identd) of the user.
+<host>	The address (hostname) of the user.
+<time>	A timestamp of when they signed on.
+
+Info
+----
+This numeric is sent when you add a user to your WATCH list and that user is online.
+
+Notes
+-----
+Whenever you add a user to your WATCH list using WATCH +nick, either this numeric or another numeric (for user is offline) is sent for each nick you have added.
+
+Different numerics are used for when users who are already on your list sign on and off.
+
+Advanced
+--------
+You will also see this numeric when you request a WATCH list update using WATCH l or WATCH L. This numeric will then be sent for every user on your WATCH list that is online.
+
+See Also
+--------
+The following numerics are related to WATCH use-
+
+600, 601, 602, 603, 604, 605, 606, 607, 512
+
+Returned From
+-------------
+WATCH
+
+
+Raw 605
+-------
+Format : 605 <nick> <userid> <host> <time> :is offline
+Example: 605 hotblack * * 0 :is offline
+Network: DALnet
+
+Parameters
+----------
+<nick>	The nickname of the user who is not on IRC.
+<userid>	The userid (identd) of the user.
+<host>	The address (hostname) of the user.
+<time>	A timestamp of when they signed on.
+
+Info
+----
+This numeric is sent when you add a user to your WATCH list and that user is not online.
+
+Notes
+-----
+Whenever you add a user to your WATCH list using WATCH +nick, either this numeric or another numeric (for user is online) is sent for each nick you have added.
+
+Note that the userid and host will always be asterisks (*) with this numeric. Since the user is not online, the address is unknown. Also, the timestamp will always be zero, again since the user is not online.
+
+Different numerics are used for when users who are already on your list sign on and off.
+
+Advanced
+--------
+You will also see this numeric when you request a WATCH list update using WATCH L. This numeric will then be sent for every user on your WATCH list that is offline. You will not see this numeric for a WATCH l request, which only lists users that are online.
+
+See Also
+--------
+The following numerics are related to WATCH use-
+
+600, 601, 602, 603, 604, 605, 606, 607, 512
+
+Returned From
+-------------
+WATCH
+
+
+Raw 606
+-------
+Format : 606 :<nicklist>
+Example: 606 :w x sb nickserv snib hotblack mspai
+Network: DALnet
+
+Parameters
+----------
+<nicklist>	A list of nicknames comprising your WATCH list.
+
+Info
+----
+This numeric is sent in response to a WATCH S request, telling you who is on your WATCH list.
+
+Notes
+-----
+The nicknames will be seperated with spaces.
+
+Advanced
+--------
+If there are too many nicknames to fit into one reply, multiple 606 replies will be returned.
+
+If you have no nicknames in your WATCH list, no 606 replies will be returned for a WATCH S request.
+
+See Also
+--------
+The following numerics are related to WATCH use-
+
+600, 601, 602, 603, 604, 605, 606, 607, 512
+
+Returned From
+-------------
+WATCH
+
+
+Raw 607
+-------
+Format : 607 :End of WATCH <query>
+Example: 607 :End of WATCH s
+Network: DALnet
+
+Parameters
+----------
+<query>	The WATCH command that you just performed.
+
+Info
+----
+This numeric is sent at the end of a WATCH l, WATCH L, WATCH s, or WATCH S request, after all other data has been sent.
+
+Notes
+-----
+This reply is not sent when adding users or clearing the WATCH list. (WATCH C)
+
+Advanced
+--------
+WATCH l and L differ, however WATCH s and S are the same. (the 607 raw will retain whichever case you used.)
+
+See Also
+--------
+The following numerics are related to WATCH use-
+
+600, 601, 602, 603, 604, 605, 606, 607, 512
+
+Returned From
+-------------
+WATCH
+
+

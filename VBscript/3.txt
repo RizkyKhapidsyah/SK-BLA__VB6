@@ -1,0 +1,16 @@
+Sub SERVERMSG (stringadati)
+
+Ogni stringa in arrivo dal server genera una chiamata a questa routine.
+La variabile "stringadati" è di sola lettura.
+I dati in arrivo sono in formato originale e privi di ogni conversione.
+
+Il codice riportato di seguito visualizza tutti i dati in arrivo dal server nella finestra di Spy Status:
+
+Esempio:
+
+Sub SERVERMSG (stringadati)
+
+spystatus.spytxt.selstart = len(spystatus.spytxt.text)
+spystatus.spytxt.seltext = stringadati & vbcrlf
+
+End Sub

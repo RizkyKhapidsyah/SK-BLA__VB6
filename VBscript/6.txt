@@ -1,0 +1,16 @@
+Sub ROOMPART (Room)
+
+Ogni volta che si chiude una room (finestra) si genera una chiamata a questa routine.
+La variabile è di sola lettura.
+
+Room........ Nome della room da cui si esce
+
+Esempio:
+
+Sub ROOMPART (Room)
+
+sock.senddata "PART " & Lcase(Room) & VbCrlf
+
+End Sub
+
+Nell' esempio si invia al server il comando di uscita dalla Room.

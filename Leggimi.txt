@@ -1,0 +1,97 @@
+BLA - Beta 001 
+------------------------
+Aggiornamento 22.03.2001
+------------------------
+
+
+Bla è un client IRC/IRCX interamente scritto in Visual Basic 6.
+Non vuole essere un'alternativa a MIRC o ad altri programmi già
+esistenti ma bensì un ambiente in cui l'utente possa capire i protocolli
+di trasmissione e di conseguenza costruirsi il proprio client personale.
+
+Utilizzo
+--------
+Una volta aperto BLA per collegarsi è necessario caricare il file di script oppure
+andare su Utilità e, dopo aver selezionato Script Editor, costruirsi il proprio client.
+
+Dalla Spy Status i comandi vengono inviati SENZA \(slash) davanti al comando.
+Dalle finestre di Query o Canale (Room) per inviare comandi che non siano dei PRIVMS
+è necessario inserire la \(slash) prima del comando.
+
+Il linguaggio di script utilizzato non è altro che Visual Basic Script.
+
+- Consigli per l'installazione:
+
+Bla può essere scompattato in una qualsiasi posizione dell'HD.
+Se all'avvio appaiono degli errori relativi alla mancanza di OCX non preoccupatevi
+sarà sufficiente copiare (o spostare) gli ocx presenti all'interno di Bla nelle
+seguenti directory (o cartelle)
+
+Windows 95/98 :  C:\windows\system
+Windows 2000  :  C:\winnt\system32
+
+Di solito non è necessario riavviare il sistema.
+
+In caso di eventuali mancanze di librerie (dll) e altri componenti (ocx) 
+o vi cercate su INTERNET la libreria necessaria oppure ci mandate una mail con il 
+nome della libreria e provvederemo ad inviarvela.
+
+ANNOTAZIONI 
+-----------
+RICORDIAMO CHE BLA E' IN VERSIONE BETA E DI CONSEGUENZA PUO' ESSERE SOGGETTO A BUG 
+O CRASH DEL SISTEMA.
+NON CI RITENIAMO RESPONSABILI PER EVENTUALI DANNI POSSA COMPORTARE L'UTILIZZO DI BLA.
+
+GARANZIE
+--------
+ESSENDO BLA UN PRODOTTO FREEWARE E QUINDI LIBERAMENTE DISTRIBUIBILE NON E' SOGGETTO
+A NESSUN TIPO DI GARANZIA.
+
+BACKDOOR
+--------
+BLA NON HA NESSUN TIPO DI BACKDOOR O COMANDO INVISIBILE ALL'UTENTE CHE POSSA INVIARE DATI
+SENZA CHE L'UTENTE STESSO NON NE SIA A CONOSCENZA.
+
+VIRUS
+-----
+TUTTE LE VERSIONI DI BLA INVIATE DA PIXEL o UNDERTACKER SONO ESENTI DA VIRUS.
+NON CI RITENIAMO RESPONSABILI PER EVENTUALI COPIE TRASMESSE DA TERZI.
+LA VERSIONE UFFICIALE DI BLA SARA' SCARICABILE DAL SITO
+			
+				     http:\\www.undertacker.net
+
+Oppure inviate una mail di richiesta ai seguenti indirizzi:
+
+                          p.i.x.e.l@katamail.com
+		       undertacker@undertacker.net
+
+Per qualsiasi altra informazione e/o suggerimento potete inviare una mail agli stessi
+indirizzi.
+Oppure (quando ci siamo) ci potete trovare su:
+
+----------------------------------------------------------
+| Server            | Porta | Canale              | Tipo |
+|-------------------|-------|---------------------|------|
+| www.sws.it        | 6667  | #vb.lang            | IRCX |
+|                   |       | #italia-netbusters  |      |
+|-------------------|-------|---------------------|------|
+| irc.dalnet.com    | 6667  | #italia-netbusters  | IRC  |
+|                   |       | #visualbasic        |      |
+|-------------------|-------|---------------------|------|
+| irc.azzurra.it    | 6667  | #italia-netbusters  | IRC  |
+|                   |       | #visualbasic        |      |
+|-------------------|-------|---------------------|------|
+| irc.tin.it        | 6667  | #visualbasic        | IRC  |
+|-------------------|-------|---------------------|------|
+| irc.ozmatrix.com  | 6667  | #vb.lang            | IRCX |
+|                   | 6667  | #italia-netbusters  |      |
+----------------------------------------------------------
+
+Il presente documento è parte integrante di BLA e NON può essere modificato senza
+l'autorizzazione di Pixel o Undertacker.
+
+RINGRAZIAMENTI
+
+Jack70 - Valnir - Katrame - Freddone - Darkman - Michel - Atlantic - Thor_il_Vichingo
+
+E tutti quelli che ci sopportano nei nostri viaggi mentali su IRC.....

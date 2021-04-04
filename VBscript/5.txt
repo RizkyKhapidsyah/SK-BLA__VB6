@@ -1,0 +1,29 @@
+Sub SERVERCOMAND (nicka, command, nickb, par1, par2, par3, Datastring)
+
+Ogni stringa in arrivo dal server che racchiude un comando genera una chiamata a questa routine.
+La variabili sono di sola lettura.
+nicka....... Nick che esegue il comando
+command..... Comando
+nickb....... Nick a cui è riferito il comando 
+par1........ Eventuale parametro aggiuntivo
+par2........ Eventuale parametro aggiuntivo
+par3........ Eventuale parametro aggiuntivo
+Datastring.. Stringa nel formato originale
+
+Esempio:
+
+Sub SERVERCOMAND (nicka, command, nickb, par1, par2, par3, Datastring)
+
+select Case command
+
+Case "NOTICE"
+
+Noticeform.richtextbox1.selstart =len(noticeform.richtextbox1.text)
+Noticeform.richtextbox1.seltext = datastring & vbcrlf
+
+End Select
+
+End Sub
+
+Annotazioni:
+Per maggiori informazioni fare riferimento alle guide "Comandi IRC" e "Comandi IRCX" riportate nel menù "Tutorial".

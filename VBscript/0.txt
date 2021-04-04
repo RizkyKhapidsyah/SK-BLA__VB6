@@ -1,0 +1,14 @@
+Sub MAIN ()
+All'interno di questa subroutine deve essere inserito il codice principale del client (definizione dei bottoni, icone ecc.)
+La main è la prima routine che viene eseguita al caricamento dello script.
+
+Esempio:
+
+Sub MAIN ()
+
+Iconcenter.ListImages.Add , , loadpicture("c:\bla\icone\ic1.ico")
+Iconcenter.ListImages.Add , , loadpicture("c:\bla\icone\ic4.ico")
+Toolbar.Buttons.Add , , "Connetti",,1
+Toolbar.Buttons.Add , , "Disconnetti",,2
+
+End Sub

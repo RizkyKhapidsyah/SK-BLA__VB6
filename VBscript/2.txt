@@ -1,0 +1,22 @@
+Sub TBUTTON ()
+Questa routine viene richiamata alla pressione di un pulsante della toolbar.
+Ogni pulsante creato richiama una routine specifica:
+
+Sub TButton1 ()
+genera un evento alla pressione del bottone 1
+
+Sub TBUTTON2 ()
+genera un evento alla pressione del bottone 2
+
+ecc...
+
+Il codice riportato di seguito esegue una connessione al server alla pressione del pulsante 1:
+
+Esempio:
+
+Sub TBUTTON1 ()
+
+If sock.State <> 0 Then sock.Close
+Sock.Connect servername.caption, serverport.caption
+
+End Sub

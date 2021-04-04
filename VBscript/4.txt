@@ -1,0 +1,27 @@
+Sub SERVERNUMERIC (Server, num, Nick, canale, DataString)
+
+Ogni stringa in arrivo dal server che racchiude un codice RAW genera una chiamata a questa routine.
+La variabili sono di sola lettura.
+Server...... Nome del server a cui si è connessi
+num......... Codice RAW
+Nick........ Nick a cui fa' riferimento il codice 
+canale...... Room a cui fa' riferimento il codice
+Datastring.. Stringa nel formato originale
+
+Esempio:
+
+Sub SERVERNUMERIC (Server, num, Nick, canale, DataString)
+
+Select Case num
+
+Case "001"
+
+msgbox "Messaggio del giorno: " & DataString
+
+End Select
+
+End Sub
+
+Annotazioni:
+Per quanto l' insieme dei codici RAW sia unificato, in base al tipo di server a cui si è collegati (IRC o IRCX), possono esserci codici diversi di risposta.
+Per maggiori informazioni fare riferimento alla guida "Codici Raw" riportata nel menù "Tutorial".
